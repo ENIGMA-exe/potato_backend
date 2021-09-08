@@ -1,0 +1,288 @@
+<style>
+    .container{
+        width: 80%;
+        height: 100%;
+        background-color: white;
+        color: black;
+    }
+    .control {
+        width: 100%;
+        height: 8%;
+        display: block;
+        position: relative;
+    }
+
+    .control>.back,
+    .control>.close {
+        cursor: pointer;
+        width: 10%;
+        height: 80%;
+        font-family: sans-serif;
+        font-size: 1.3rem;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 20px;
+        position: absolute;
+        top: 5%;
+        color: white;
+        background-image: linear-gradient(to right, rgb(37, 37, 201), rgb(120, 45, 190));
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    .control>.back {
+        left: 1%;
+    }
+
+    .control>.close {
+        right: 1%;
+    }
+
+    .heading {
+        width: 100%;
+        height: 10%;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+/*..................changing.........................................*/
+    .heading>.user_d_heading,.main_ud_b>.user_d>.user_d_heading_2{
+/*...................................................................*/        
+        width: 95%;
+        height: 90%;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        font-family: sans-serif;
+    }
+
+    .heading>.user_d_heading>.d_box {
+        width: 20%;
+        height: 75%;
+        display: flex;
+        font-weight: bold;
+        font-size: 1.3rem;
+        color: rgb(73, 70, 70);
+        align-items: center;
+        justify-content: space-evenly;
+        background-color: rgb(69, 190, 238);
+    }
+
+    .heading>.user_d_heading>.space {
+        width: 10%;
+        height: 75%;
+    }
+
+    .main_ud_b{
+        width: 100%;
+        height: 80%;
+        display: block;
+        overflow-y: scroll;
+    }
+    .main_ud_b::-webkit-scrollbar {
+        display: none;
+    }
+
+    .main_ud_b>.user_d_slot{
+        width: 95%;
+        height: 10%;
+        margin-bottom: 1%;
+        display: flex;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .main_ud_b>.user_d_slot>.user_d_heading_2{
+        display: none;
+    }
+    .main_ud_b>.user_d_slot>.user_d {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        font-family: sans-serif;
+    }
+
+    .main_ud_b>.user_d_slot>.user_d>.d_box {
+        width: 20%;
+        height: 75%;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    .main_ud_b>.user_d_slot>.user_d>.d_box::-webkit-scrollbar{
+        display: none;
+    }
+    .main_ud_b>.user_d_slot>.user_d>.d_box:nth-child(1),.heading>.user_d_heading>.d_box:nth-child(1){
+        width: 15% !important;
+    }
+    .main_ud_b>.user_d_slot>.user_d>.d_box:nth-child(4),.heading>.user_d_heading>.d_box:nth-child(4){
+        overflow-x: scroll;
+        width: 25% !important;
+    }
+    .main_ud_b>.user_d_slot>.user_d>.d_box:nth-child(4)::-webkit-scrollbar,
+    .heading>.user_d_heading>.d_box:nth-child(4)::-webkit-scrollbar{
+        display: none;
+    }
+
+    .main_ud_b>.user_d_slot>.user_d>button {
+        cursor: pointer;
+        width: 10%;
+        height: 75%;
+        font-size: 1.3rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        border: none;
+        outline: none;
+        color: rgb(58, 58, 58);
+        background-color: rgb(245, 66, 66);
+    }
+
+    @media only screen and (max-width:1125px){
+        .control>.back,.control>.close{
+            top: 7%;
+        }
+        .main_ud_b>.user_d_slot>.user_d>.d_box:nth-child(4){
+            font-size: 0.8rem;
+        }
+    }
+    @media only screen and (max-width:891px){
+        .heading>.user_d_heading,.main_ud_b>.user_d_slot{
+            width: 100%;
+        }
+    }
+    @media only screen and (max-width:860px){
+        .main_ud_b>.user_d_slot>.user_d>button,.heading>.user_d_heading>.space{
+            width: 6%;
+        }
+        .main_ud_b>.user_d_slot>.user_d>button{
+            border-radius: 5px;
+            font-size: 1.1rem;
+        }
+        .main_ud_b>.user_d_slot>.user_d>.d_box:nth-child(4),.heading>.user_d_heading>.d_box:nth-child(4){
+            width: 30% !important;
+        }
+    }
+    @media only screen and (max-width:740px){
+        .control>.back,.control>.close{
+            width: 15%;
+        }
+        .heading>.user_d_heading>.d_box{
+            font-size: 1.1rem;
+            /*font-weight: 400;*/
+        }
+    }
+    @media only screen and (max-width:690px){
+        .heading{
+            display: none;
+        }
+        .main_ud_b{
+            height: 90%;
+        }
+        .main_ud_b>.user_d_slot{
+            height: 40%;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            border-bottom: 2px solid rgb(80, 79, 79);
+        }
+        .main_ud_b>.user_d_slot>.user_d_heading_2,.main_ud_b>.user_d_slot>.user_d{
+            width: 30%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            align-items: center;
+            
+        }
+        .main_ud_b>.user_d_slot>.user_d{
+            width: 69% !important;
+            height: 100% !important;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .main_ud_b>.user_d_slot>.user_d_heading_2{
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .main_ud_b>.user_d_slot>.user_d_heading_2>.d_box{
+            height: 19%;
+            width: 98%;
+            background-color: rgb(69, 190, 238);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        .space{
+            height: 19%;
+            width: 98%;
+        }
+        .main_ud_b>.user_d_slot>.user_d>.d_box,
+        button,
+        .main_ud_b>.user_d_slot>.user_d>.d_box:nth-child(1),
+        .main_ud_b>.user_d_slot>.user_d>.d_box:nth-child(4){
+            height: 19% !important;
+            width: 98% !important;
+            font-size: 1.1rem;
+        }
+        button{
+            font-size: 1.7rem !important;
+            font-weight: bold !important;
+        }
+    }
+    @media only screen and (max-width:435px){
+        .container{
+            width: 95%;
+        }
+        .control>.back,.control>.close{
+            top: 10%;
+            width: 20%;
+        }
+        .main_ud_b>.user_d_slot>.user_d>.d_box:nth-child(4){
+            font-size: 1rem;
+        }
+    }
+</style>
+
+    <div class="container">
+        <div class="control">
+            <div class="back" onclick="ed_ud_a_back()">Back</div>
+            <div class="close" onclick="close_modal()">close</div>
+        </div>
+
+        <div class="heading">
+            <div class="user_d_heading">
+                <div class="d_box" id="id">ID</div>
+                <div class="d_box" id="fname">First Name</div>
+                <div class="d_box" id="lname">Last Name</div>
+                <div class="d_box" id="u_email">Email</div>
+                <div class="space"></div>
+            </div>
+        </div>
+
+        <div class="main_ud_b">
+
+            <div class="user_d_slot">
+                <div class="user_d_heading_2">
+                    <div class="d_box" id="id">ID</div>
+                    <div class="d_box" id="fname">First Name</div>
+                    <div class="d_box" id="lname">Last Name</div>
+                    <div class="d_box" id="u_email">Email</div>
+                    <div class="space"></div>
+                </div>
+                <div class="user_d">
+                    <div class="d_box" id="id">xc90bc234ert</div>
+                    <div class="d_box" id="fname">nitin</div>
+                    <div class="d_box" id="lname">title</div>
+                    <div class="d_box" id="u_email">dummy.12@gmail.com</div>
+                    <button id='id' onclick="ed_ud_c(this);"><i class="far fa-edit"></i></button>
+                </div>
+            </div> 
+
+        </div>
+    </div>

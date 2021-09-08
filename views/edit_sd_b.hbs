@@ -1,0 +1,316 @@
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+    .main_as{
+        background-color: white;
+        width: 70%;
+        height: 90%;
+        border-top: 2px solid rgba(104, 102, 102, 0.637);
+    }
+
+    .control {
+        background-color: white;
+        width: 70%;
+        height: 8%;
+        display: block;
+        position: relative;
+    }
+
+    .control>.close,.control>.back{
+        cursor: pointer;
+        width: 10%;
+        height: 80%;
+        font-family: sans-serif;
+        font-size: 1.3rem;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 20px;
+        position: absolute;
+        top: 10%;
+        right: 1%;
+        color: white;
+        background-image: linear-gradient(to right, rgb(37, 37, 201), rgb(120, 45, 190));
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+    .control>.back{
+        left: 1% !important;
+    }
+
+    .main_as>.series_details {
+        width: 100%;
+        height: 45%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        border-bottom: 3px solid rgba(82, 81, 81, 0.63);
+    }
+
+    .main_as>.series_details>.slot {
+        width: 100%;
+        height: 20%;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+
+    .fillup {
+        width: 40%;
+        height: 93%;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        border-radius: 40px;
+        background-color: white;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    .fillup>i {
+        font-size: 1.5rem;
+        color: rgb(113, 46, 236);
+    }
+
+    .fillup>input {
+        width: 85%;
+        height: 100%;
+        font-size: 1.2rem;
+        text-align: left;
+        padding-left: 1%;
+        border-radius: 40px;
+        outline: none;
+        border: none;
+        background: transparent;
+    }
+     .fillup>label,.fillup>select{
+        width: 35%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+        font-family: sans-serif;
+        color: rgba(99, 97, 97, 0.822);
+    }
+    .fillup>select,.fillup>select>option{
+        font-size: 1rem !important;
+        border-radius: 30px;
+        border: none;
+        outline: none;
+        /*border: 1px solid black;
+        border-radius: 40px;*/
+    }
+
+    .main_as>.dp_details {
+        width: 100%;
+        height: 45%;
+        overflow-y: scroll;
+        display: flex;
+        align-items: center;
+        justify-content:center;
+        
+    }
+    .main_as>.dp_details::-webkit-scrollbar{
+        display: none;
+    }
+    .main_as>.dp_details>i{
+        font-size: 1.5rem;
+        color: rgb(113, 46, 236);
+        margin-right: 1%;
+    }
+    .main_as>.dp_details>label{
+        font-size: 1.2rem;
+        font-family: sans-serif;
+        margin-right: 4%;
+        color: rgba(0, 0, 0, 0.562);
+        font-weight: bold;
+    }
+    .main_as>.dp_details>textarea{
+        width: 70%;
+        height: 90%;
+        border-radius: 20px;
+        font-size: 1.2rem;
+        padding-left: 1%;
+        padding-top: 1%;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        outline: none;
+        border: none;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+    .main_as>.dp_details>textarea::-webkit-scrollbar {
+        display: none;
+    }
+    .main_as>.bt_section {
+        width: 100%;
+        height: 10%;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        border-top: 3px solid rgba(102, 101, 101, 0.596);
+    }
+
+    .main_as>.bt_section>button {
+        width: 20%;
+        height: 80%;
+        border: none;
+        border-radius: 40px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        /*margin-top: 1%;*/
+        cursor: pointer;
+        color: white;
+        background-image: linear-gradient(to right, rgb(37, 37, 201), rgb(120, 45, 190));
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+     @media only screen and (max-width:845px){
+        .control,.main_as{
+            width: 80%;
+        }
+    }
+    @media only screen and (max-width:685px){
+        .control>.close,.control>.back{
+            width: 15%;
+        }
+        .control,.main_as{
+            width: 90%;
+        }
+        .fillup{
+            width: 45%;
+        }
+        .fillup>i{
+            font-size: 1.2rem;
+        }
+        .fillup>select{
+            width: 45%;
+            font-size: 1rem;
+        }
+    }
+    @media only screen and (max-width:525px){
+        .control,.main_as{
+            width: 95%;
+        }
+    }
+    @media only screen and (max-width:511px){
+        .main_as>.dp_details>i{
+            font-size: 1.2rem;
+        }
+        .main_as>.dp_details>label{
+            font-size: 1rem;
+        }
+        .main_as>.dp_details>textarea{
+            height: 70%;
+        }
+        .fillup>label{
+            font-size: 0.9rem;
+        }
+    }
+    @media only screen and (max-width:480px){
+        .fillup>input {
+            font-size: 1rem;
+        }
+        .main_as>.series_details{
+            height: 60%;
+        }
+        .main_as>.series_details>.slot{
+            height: 15%;
+        }
+        .main_as>.series_details>.slot:nth-child(4){
+            flex-direction: column;
+            height: 40%;
+        }
+        .main_as>.series_details>.slot:nth-child(4)>.fillup{
+            width: 97%;
+            height: 40%;
+        }
+        .main_as>.dp_details {
+            height: 30%;
+        }
+        .main_as>.dp_details>textarea{
+            height: 95%;
+        }
+    }
+    @media only screen and (max-width:400px){
+        .control>.close,.control>.back{
+            width: 20%;
+        }
+        .main_as>.bt_section>button {
+            width: 25%;
+        }
+    }
+</style>
+
+<div class="control">
+    <div class="back" onclick="ed_seri_a_back()">Back</div>
+    <div class="close" onclick="close_modal()">close</div>
+</div>
+<div class="main_as">
+    <div class="series_details">
+
+        <div class="slot">
+            <div class="fillup">
+                <i class="fas fa-photo-video"></i>
+                <input id="s_name" name="s_name" type="text" placeholder="Series name">
+            </div>
+            <div class="fillup">
+                <i class="fas fa-user-circle"></i>
+                <input id="s_dir" name="s_dir" type="text" placeholder="director">
+            </div>
+        </div>
+        <div class="slot">
+            <div class="fillup">
+                <i class="fas fa-video"></i>
+                <input id="s_yr" name="s_yr" type="text" placeholder="Year of Release">
+            </div>
+            <div class="fillup">
+                <i class="fab fa-imdb"></i>
+                <input id="s_imdb" name="s_imdb" type="text" placeholder="IMDB Ratting">
+            </div>
+        </div>
+        <div class="slot">
+            <div class="fillup">
+                <i class="fas fa-stopwatch-20"></i>
+                <input id="s_tep" name="s_tep" type="text" placeholder="total episode ">
+            </div>
+            <div class="fillup">
+                <i class="fas fa-link"></i>
+                <input id="s_bl" name="s_bl" type="text" placeholder="Banner link">
+            </div>
+        </div>
+        <div class="slot">
+            <div class="fillup">
+                <i class="fas fa-chevron-down"></i>
+                <label for="type">Genres 1</label>
+                <select name="type" id="sgtype1">
+                    <option value="horror">Horror</option>
+                    <option value="comedi">comedi</option>
+                    <option value="romantic">Romantic</option>
+                </select>
+            </div>
+            <div class="fillup">
+                <i class="fas fa-chevron-down"></i>
+                <label for="type">Genres 2</label>
+                <select name="type" id="sgtype2">
+                    <option value="horror">Horror</option>
+                    <option value="comedi">comedi</option>
+                    <option value="romantic">Romantic</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="dp_details">
+        <i class="fas fa-align-left"></i>
+        <label for="textarea">Discription</label>
+        <!-- <input type="text" placeholder="Description"> -->
+        <textarea name="discription" id="s_des"></textarea>
+    </div>
+
+    <div class="bt_section">
+        <button onclick="ed_seri_c()">Next</button>
+    </div>
+</div>

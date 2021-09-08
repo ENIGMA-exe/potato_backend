@@ -1,0 +1,304 @@
+ <style>
+         * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+    .main_ads{
+        background-color: white;
+        color: black;
+        width: 50%;
+        height: 90%;
+        border-top: 2px solid rgba(104, 102, 102, 0.637);
+    }
+
+    .control {
+        background-color: white;
+        width: 50%;
+        height: 8%;
+        display: block;
+        position: relative;
+    }
+
+    .control>.close {
+        cursor: pointer;
+        width: 10%;
+        height: 80%;
+        font-family: sans-serif;
+        font-size: 1.3rem;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 20px;
+        position: absolute;
+        top: 5%;
+        right: 1%;
+        color: white;
+        background-image: linear-gradient(to right, rgb(37, 37, 201), rgb(120, 45, 190));
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    .main_ads>.ads_details {
+        width: 100%;
+        height: 40%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        border-bottom: 3px solid rgba(82, 81, 81, 0.63);
+    }
+
+    .main_ads>.ads_details>.slot {
+        width: 100%;
+        height: 20%;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+
+    .fillup {
+        width: 40%;
+        height: 93%;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        border-radius: 40px;
+        background-color: white;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    .fillup>i {
+        font-size: 1.3rem;
+        color: rgb(113, 46, 236);
+    }
+
+    .fillup>input {
+        width: 85%;
+        height: 100%;
+        font-size: 1.2rem;
+        text-align: left;
+        padding-left: 1%;
+        border-radius: 40px;
+        outline: none;
+        border: none;
+        background: transparent;
+    }
+    .fillup>label,.fillup>select{
+        width: 35%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+        font-family: sans-serif;
+        color: rgba(99, 97, 97, 0.822);
+    }
+    .fillup>select,.fillup>select>option{
+        font-size: 1rem !important;
+        border-radius: 30px;
+        border: none;
+        outline: none;
+        /*border: 1px solid black;
+        border-radius: 40px;*/
+    }
+    .main_ads>.info{
+        width: 100%;
+        height: 49%;
+        border: 1px solid black;
+        padding-left: 4%;
+        display: flex;
+        flex-direction: column;
+        align-items: left;
+        justify-content: space-around;
+        font-family: sans-serif;
+        font-size: 1.1rem;
+        font-weight: bold;
+        overflow-y: scroll;
+    }
+    .main_ads>.info::-webkit-scrollbar{
+        display: none;
+    }
+    .main_ads>.info>ul{
+        list-style-type:none;
+    }
+    .main_ads>.info>ul>li{
+        margin-bottom: 2%;
+        text-align: justify;
+    }
+
+    .main_ads>.bt_section {
+        width: 100%;
+        height: 10%;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        border-top: 3px solid rgba(102, 101, 101, 0.596);
+    }
+
+    .main_ads>.bt_section>button {
+        width: 20%;
+        height: 80%;
+        border: none;
+        border-radius: 40px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        /*margin-top: 1%;*/
+        cursor: pointer;
+        color: white;
+        background-image: linear-gradient(to right, rgb(37, 37, 201), rgb(120, 45, 190));
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+    @media screen and (max-width:1090px){
+        .main_ads{
+            width: 55%;
+        }
+        .control {
+            width: 55%;
+        }
+    }
+    @media screen and (max-width:1024px){
+        .control>.close{
+            width: 15%;
+        }
+        .fillup{
+            width: 47%;
+        }
+    }
+    @media screen and (max-width:970px){
+        .main_ads{
+            width: 60%;
+        }
+        .control {
+            width: 60%;
+        }
+    }
+    @media screen and (max-width:800px){
+        .main_ads{
+            width: 70%;
+        }
+        .control {
+            width: 70%;
+        }
+    }
+    @media screen and (max-width:680px){
+        .main_ads{
+            width: 80%;
+        }
+        .control {
+            width: 80%;
+        }
+    }
+    @media screen and (max-width:595px){
+        .main_ads{
+            width: 95%;
+        }
+        .control {
+            width: 95%;
+        }
+    }
+    @media screen and (max-width:505px){
+        .main_ads>.ads_details{
+            height: 58%;
+        }
+        .main_ads>.ads_details>.slot{
+            height: 40%;
+            flex-direction: column;
+
+        }
+        .fillup{
+            width: 97%;
+            height: 45%;
+        }
+        .fillup>label,.fillup>select{
+            width: 42.5%;
+        }
+        .main_ads>.info{
+            height: 30%;
+        }
+        .main_ads>.bt_section>button{
+            width: 25%;
+        }
+    }
+    @media screen and (max-width:405px){
+        .fillup>i{
+            font-size: 1.1rem;
+        }
+        .fillup>input{
+            font-size: 1rem;
+        }
+        .main_ads>.info{
+            font-size: 1rem;
+        }
+        .control>.close{
+            width: 20%;
+        }
+    }
+    @media screen and (max-width:372px){
+        .main_ads>.info{
+            font-size: 0.9rem;
+        }
+    }
+</style>
+    <div class="control">
+        <div class="close" onclick="close_modal()">close</div>
+    </div>
+
+    <div class="main_ads">
+        <div class="ads_details">
+            <div class="slot">
+                <div class="fillup">
+                    <i class="fas fa-photo-video"></i>
+                    <input id="org_name" name="org_name" type="text" placeholder="Organisation Name">
+                </div>
+                <div class="fillup">
+                    <i class="fas fa-chevron-down"></i>
+                    <label for="catogory">Catogory</label>
+                    <select name="catogory" id="catogory">
+                        <option value="education">Education</option>
+                        <option value="promotion">Promotion</option>
+                        <option value="domestic">Domestic</option>
+                    </select>
+                    <!-- <input id="user_name" name="user_f_name" type="text" placeholder="director"> -->
+                </div>
+            </div>
+            <div class="slot">
+                <div class="fillup">
+                    <i class="fas fa-stopwatch-20"></i>
+                    <input id="ads_duration" name="ads_duration" type="text" placeholder="Duration (month)">
+                </div>
+                <div class="fillup">
+                    <i class="fas fa-chevron-down"></i>
+                    <label for="type">Ads. Type</label>
+                    <select name="type" id="type">
+                        <option value="banner">Banner</option>
+                        <option value="video">Video</option>
+                    </select>
+                    <!--<input id="user_name" name="user_f_name" type="text" placeholder="IMDB Ratting"> -->
+                </div>
+            </div>
+            <div class="slot">
+                <div class="fillup">
+                    <i class="fas fa-rupee-sign"></i>
+                    <input id="ads_price" name="ads_price" type="text" placeholder="price" readonly>
+                </div>
+                <div class="fillup">
+                    <i class="fas fa-link"></i>
+                    <input id="ads_link" name="ads_link" type="text" placeholder="Banner/video link">
+                </div>
+            </div>
+        </div>
+
+        <div class="info">
+            <ul>
+                <li>demo stetment 1 for advertisement purpose </li>
+                <li>demo stetment 1 for advertisement purpose </li>
+                <li>demo stetment 1 for advertisement purpose </li>
+                <li>demo stetment 1 for advertisement purpose</li>
+            </ul>
+        </div>
+
+        <div class="bt_section">
+            <button onclick="ads_reg()">Register</button>
+        </div>
+    </div>

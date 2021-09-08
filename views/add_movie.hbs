@@ -1,0 +1,342 @@
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+    .main_con {
+        color: black;
+        background-color: white;
+        position: relative;
+        width: 35%;
+        height: 80%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    #initial{
+        justify-content: center !important;
+    }
+    #initial>button{
+        display: none;
+    }
+    .close{
+        cursor: pointer;
+        width: 15%;
+        height: 8%;
+        font-family: sans-serif;
+        font-size: 1.3rem;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 20px;
+        position: absolute;
+        top: 1.5%;
+        right: 3%;
+        color: white;
+        background-image: linear-gradient(to right, rgb(37, 37, 201), rgb(120, 45, 190));
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+     }
+    .main_con>p {
+        font-family: sans-serif;
+        font-size: 2rem;
+        font-weight: bold;
+        margin-top: 2%;
+        margin-bottom: 4%;
+    }
+
+    .fillup {
+        width: 95%;
+        height: 10%;
+        margin-bottom: 3%;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        border-radius: 40px;
+        background-color: white;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    .fillup>i {
+        font-size: 1.5rem;
+        color: rgb(113, 46, 236);
+    }
+
+    .fillup>input {
+        width: 85%;
+        height: 100%;
+        font-size: 1.2rem;
+        text-align: left;
+        padding-left: 1%;
+        border-radius: 40px;
+        outline: none;
+        border: none;
+    }
+     .fillup>label,.fillup>select{
+        width: 35%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+        font-family: sans-serif;
+        color: rgba(99, 97, 97, 0.822);
+    }
+    .fillup>select,.fillup>select>option{
+        font-size: 1rem !important;
+        border-radius: 30px;
+        border: none;
+        outline: none;
+        /*border: 1px solid black;
+        border-radius: 40px;*/
+    }
+     .main_con>.dp_details {
+        width: 98%;
+        height:50%;
+        overflow-y: scroll;
+        display: flex;
+        align-items: center;
+        justify-content:center;
+    }
+    .main_con>.dp_details::-webkit-scrollbar{
+        display: none;
+    }
+    .main_con>.dp_details>i{
+        font-size: 1.5rem;
+        color: rgb(113, 46, 236);
+        margin-right: 1%;
+    }
+    .main_con>.dp_details>label{
+        font-size: 1.2rem;
+        font-family: sans-serif;
+        margin-right: 2%;
+        color: rgba(0, 0, 0, 0.562);
+        font-weight: bold;
+    }
+    .main_con>.dp_details>label>#temp{
+        font-size: 1.5rem;
+        color: rgb(113, 46, 236);
+        display: none;
+    }
+    .main_con>.dp_details>textarea{
+        width: 65%;
+        height: 90%;
+        border-radius: 20px;
+        font-size: 1.2rem;
+        padding-left: 1%;
+        padding-top: 1%;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        outline: none;
+        border: none;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+    .main_con>.dp_details>textarea::-webkit-scrollbar {
+        display: none;
+    }
+
+    .main_con>button {
+        /*display: none;*/
+        width: 30%;
+        height: 9%;
+        border: none;
+        border-radius: 40px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        /*margin-top: 1%;*/
+        cursor: pointer;
+        color: white;
+        background-image: linear-gradient(to right, rgb(37, 37, 201), rgb(120, 45, 190));
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+    @media only screen and (max-width:1087px){
+        .main_con>p{
+            font-size: 1.6rem;
+        }
+        .main_con>p:nth-child(2){
+            margin-top: 8%;
+        }
+        .close{
+            width: 18%;
+        }
+        .main_con>.dp_details{
+            flex-direction: column;
+            justify-content:space-evenly;
+        }
+        .main_con>.dp_details>i{
+            display: none;
+        }
+        .main_con>.dp_details>label{
+            width: 95%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .main_con>.dp_details>label>#temp{
+            display: block;
+            margin-right: 2%;
+        }
+        .main_con>.dp_details>textarea{
+            height: 70%;
+            width: 95%;
+        }
+        .main_con>.dp_details>textarea{
+            font-size: 1rem;
+        }
+    }
+    @media only screen and (max-width:945px){
+        .fillup {
+            height: 9%;
+            margin-bottom: 4%;
+        }
+        .main_con>button{
+            width: 45%;
+            height: 8%;
+            font-size: 1rem;
+        }
+    }
+    @media only screen and (max-width:885px){
+        .main_con{
+            width: 45%;
+            height: 90%;
+        }
+    }
+    @media only screen and (max-width:720px){
+        .main_con>p:nth-child(2){
+            margin-top: 15%;
+        }
+        .close{
+            width: 20%;
+            height: 7%;
+            font-size: 1.1rem;
+        }
+    }
+    @media only screen and (max-width:661px){
+        .main_con{
+            width: 48%;
+            height: 90%;
+        }
+        .fillup>i{
+            font-size: 1.3rem;
+        }
+        .fillup>input {
+            font-size: 1rem;
+        }
+    }
+    @media screen and (max-width:585px){
+        .main_con{
+            position: absolute;
+        }
+        .main_con:nth-child(2){
+            border-bottom: 3px solid rgb(49, 44, 44);
+            top: 95% !important;
+        }
+        #initial>p,#initial>.close,#second>button{
+            display: none !important;
+        }
+        #initial>button{
+            display: block;
+        }
+        .main_con{
+            width: 65%;
+        }
+        .main_con>p:nth-child(2){
+            margin-top: 20%;
+        }
+    }
+    @media screen and (max-width:485px){
+        .main_con{
+            width: 70%;
+        }
+        .main_con>p:nth-child(2){
+            margin-bottom: 10% ;
+    
+        }
+    }
+    @media screen and (max-width:395px){
+        .main_con{
+            width: 85%;
+        }
+    }
+    @media screen and (max-width:335px){
+        .main_con{
+            width: 95%;
+        }
+    }
+</style>
+    <div class="main_con" id="initial">
+        <div class="close" onclick="close_modal()">close</div>
+         <p>lets Add Movie!</p>
+
+        <div class="fillup">
+            <i class="fas fa-chevron-down"></i>
+            <label for="type">Genres 1</label>
+            <select name="type" id="sgtype1">
+                <option value="horror">Horror</option>
+                <option value="comedi">comedi</option>
+                <option value="romantic">Romantic</option>
+            </select>
+        </div>
+        <div class="fillup">
+            <i class="fas fa-chevron-down"></i>
+            <label for="type">Genres 2</label>
+            <select name="type" id="sgtype2">
+                <option value="horror">Horror</option>
+                <option value="comedi">comedi</option>
+                <option value="romantic">Romantic</option>
+            </select>
+        </div>
+        
+        <div class="dp_details">
+            <i class="fas fa-align-left"></i>
+
+            <label for="textarea">
+                <i id="temp" class="fas fa-align-left"></i>
+                Description
+            </label>
+            <!-- <input type="text" placeholder="Description"> -->
+            <textarea name="discription" id="s_des"></textarea>
+        </div>
+
+        <button onclick="movie_reg()">Add Movie</button>
+    </div>
+
+    <div class="main_con" id="second">
+        <div class="close" onclick="close_modal()">close</div>
+        <p> Movie bio!</p>
+
+        <div class="fillup">
+            <i class="fas fa-users"></i>
+            <input id="movie_name" name="user_name" type="text" placeholder="Name/Title">
+        </div>
+
+        <div class="fillup">
+            <i class="fas fa-users"></i>
+            <input id="movie_dir" name="user_name" type="text" placeholder="Director">
+        </div>
+
+        <div class="fillup">
+            <i class="fas fa-envelope"></i>
+            <input id="movie_yr" name="user_em" type="text" placeholder="Relese year">
+        </div>
+
+        <div class="fillup">
+            <i class="fas fa-lock"></i>
+            <input id="movie_imdb" name="user_pass" type="text" placeholder="IMDB Ratting">
+        </div>
+
+        <div class="fillup">
+            <i class="fas fa-lock"></i>
+            <input id="movie_bl" name="user_pass_2" type="text" placeholder="Banner link">
+        </div>
+
+        <div class="fillup">
+            <i class="fas fa-lock"></i>
+            <input id="movie_gdl" name="user_pass_2" type="text" placeholder="Gdrive link">
+        </div>
+
+        <button onclick="movie_reg()">Add Movie</button>
+
+    </div>

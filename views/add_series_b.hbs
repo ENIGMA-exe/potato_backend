@@ -1,0 +1,229 @@
+<style>
+    *{
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+    .control {
+        background-color: white;
+        width: 70%;
+        height: 8%;
+        display: block;
+        position: relative;
+        color: black;
+    }
+
+    .control>.close,.control>.reg,.control>.back,.control>.addep{
+        cursor: pointer;
+        width: 13%;
+        height: 80%;
+        font-family: sans-serif;
+        font-size: 1.3rem;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 20px;
+        position: absolute;
+        top: 5%;
+        right: 1%;
+        color: white;
+        background-image: linear-gradient(to right, rgb(37, 37, 201), rgb(120, 45, 190));
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+    .control>.reg{
+        width:15% !important;
+    }
+    .control>.back{
+        left: 1% !important;
+    }
+    .control>.addep{
+            width: 18% !important;
+        left: 1% !important;
+    }
+    .ep_details {
+        width: 70%;
+        height: 80%;
+        overflow-y: scroll;
+        background-color: white;
+    }
+
+    .ep_details::-webkit-scrollbar {
+        display: none;
+    }
+
+    .ep_details>.slot {
+        width: 100%;
+        height: 10%;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        margin-top: 1%;
+    }
+
+    .ep_details>.slot>.fillup {
+        width: 30%;
+        height: 93%;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        border-radius: 40px;
+        background-color: white;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+    .ep_details>.slot>.fillup>i {
+        font-size: 1.5rem;
+        color: rgb(113, 46, 236);
+    }
+
+    .ep_details>.slot>.fillup>input {
+        width: 85%;
+        height: 100%;
+        font-size: 1.2rem;
+        text-align: left;
+        padding-left: 1%;
+        border-radius: 40px;
+        outline: none;
+        border: none;
+        background: transparent;
+    }
+
+    /* ...............episode sl no........................*/
+    .ep_details>.slot>.fillup:nth-child(1) {
+        width: 15%;
+    }
+
+    .ep_details>.slot>.fillup:nth-child(1)>input {
+        font-size: 1.1rem;
+        width: 75%;
+    }
+
+    /*................ episode link no.....................*/
+    .ep_details>.slot>.fillup:nth-child(3){
+        width: 40%;
+    }
+    .ep_details>.slot>.fillup:nth-child(4){
+        height: 95%;
+        width: 7%;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        outline: none;
+        background-color: rgb(224, 51, 51);
+    }
+    .ep_details>.slot>.fillup>.del{
+        height: 100%;
+        width: 100%;
+        border-radius: 10px;
+        background-color: transparent;
+        border: none;
+        outline: none;
+        font-size: 1.5rem;
+        color: white;
+        cursor: pointer;
+    }
+    @media only screen and (max-width:1048px){
+        .control>.addep{
+            font-size: 1.1rem;
+        }
+    }
+    @media only screen and (max-width:870px){
+        .control>.addep{
+            width: 25% !important;
+        }
+        .ep_details>.slot>.fillup>i{
+            font-size: 1.2rem;
+        }
+    }
+    @media only screen and (max-width:756px){
+        .ep_details>.slot>.fillup>input{
+            font-size: 1rem;
+        }
+        .ep_details>.slot>.fillup:nth-child(1)>input{
+            font-size: 1rem;
+        }
+        .control>.reg{
+            width:20% !important;
+            font-size: 1.2rem;
+        }
+    }
+    @media only screen and (max-width:685px){
+        .ep_details>.slot{
+            flex-direction: column;
+            height: 45%;
+            border-bottom: 2px solid rgb(75, 72, 72);
+        }
+        .ep_details>.slot>.fillup:nth-child(1),
+        .ep_details>.slot>.fillup:nth-child(2),
+        .ep_details>.slot>.fillup:nth-child(3),
+        .ep_details>.slot>.fillup:nth-child(4)
+        {
+            width: 98%;
+            height: 20%;
+        }
+        .ep_details>.slot>.fillup:nth-child(1)>input{
+            width: 85%;
+            font-size: 1.2rem;
+        }
+        .ep_details>.slot>.fillup>input{
+            font-size: 1.2rem;
+        }
+        .ep_details>.slot>.fillup>i{
+            font-size: 1.5rem;
+        }
+    }
+    @media only screen and (max-width:638px){
+        .control>.close,.control>.reg,.control>.back,.control>.addep{
+            font-size: 0.9rem;
+        }
+    }
+    @media only screen and (max-width:638px){
+        .control,.ep_details{
+            width: 90%;
+        }
+    }
+    @media only screen and (max-width:405px){
+        .control>.close,.control>.reg,.control>.back{
+            width: 30% !important;
+        }
+        .control>.addep{
+             width: 40% !important;
+        }
+    }
+</style>
+
+<div class="control">
+    <div class="back" onclick="add_series_back()">Back</div>
+    <div class="close" onclick="close_modal()">close</div>
+</div>
+
+<div class="ep_details" id="mks">
+    <!-- <div class="slot" id="slot_">
+            <div class="fillup">
+                <i class="fas fa-angle-double-down"></i>
+                <input id="epno_" name="user_f_name" type="text" placeholder="ep-no">
+            </div>
+            <div class="fillup">
+                <i class="fas fa-file-video"></i>
+                <input id="epname_" name="user_f_name" type="text" placeholder="episode name">
+            </div>
+            <div class="fillup">
+                <i class="fas fa-link"></i>
+                <input id="eplink_" name="user_f_name" type="text" placeholder="link">
+            </div>
+
+            <div class="fillup">
+                <button class="del" id="nan">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+        </div>
+    </div> -->
+</div>
+
+<div class="control">
+    <div class="addep" onclick="add_ep()">Add episode</div>
+    <div class="reg" onclick="sreg()">Register</div>
+</div>
+

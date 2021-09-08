@@ -1,0 +1,1805 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Potato Admin</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" async defer></script>
+        <script async defer src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.0/dist/js.cookie.min.js"></script>
+        <script async defer type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    </head>
+    <style >
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+            transition: .4s;
+        }
+        body{
+            color: white;
+            background-color: #06070de1;
+        }
+        .modal,.popup_modal{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            z-index: 3;
+
+/*change the display value none to flex*/
+            display: none;
+            flex-direction:column;
+            /*flex-wrap: wrap;*/
+            justify-content: center;
+            align-items: center;
+            background-color: #cfcccc5d;
+        }
+        .modal{
+             overflow-y: scroll;
+        }
+        .modal::-webkit-scrollbar{
+            display:  none;
+        }
+        .popup_modal{
+            display: flex;
+            z-index: 5 !important;
+            background-color: #535151a8 !important;
+        }
+        .admin_login {
+            height: 100%;
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-evenly;
+            /*background-color: white;*/
+            color: black;
+        }
+
+        .admin_login>i{
+            color: rgb(113, 46, 236);
+            font-size: 7rem;
+            border-radius: 50%;
+            width: 25%;
+            height: 25%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+        .admin_login>#admin_msg{
+            width: 60%;
+            height: 8%;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.267);
+            color: rgba(0, 0, 0, 0.568);
+            border-radius: 50px;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        .admin_login>.fillup {
+            width: 95%;
+            height: 9%;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            border-radius: 40px;
+            background-color: white;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+
+        .admin_login>.fillup>i {
+            font-size: 2.2rem;
+            color: rgb(113, 46, 236);
+        }
+
+        .admin_login>.fillup>input {
+            width: 85%;
+            height: 100%;
+            font-size: 1.2rem;
+            text-align: left;
+            padding-left: 1%;
+            border-radius: 40px;
+            outline: none;
+            border: none;
+        }
+        #pass {
+            width: 75%;
+        }
+
+        #eye {
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .admin_login>button {
+            width: 30%;
+            height: 8%;
+            border: none;
+            border-radius: 40px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            /*margin-top: 2%;*/
+            cursor: pointer;
+            color: white;
+            background-image: linear-gradient(to right, rgb(37, 37, 201), rgb(120, 45, 190));
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+
+        .main{
+            width: 98%;
+            height: 100%;
+
+/*change the display value none to flex*/
+            display: flex;
+            margin-left: auto;
+            margin-right: auto;
+            justify-content: space-evenly;
+        }
+        .sub_main_1{
+            width: 20%;
+            height: 100%;
+            display: flex;
+            justify-content: space-evenly;
+            flex-direction: column;
+            background-color: #292f34;
+            color: rgb(236, 228, 228, 0.795);
+        }
+        .sub_main_1.active{
+            left: 0;
+        }
+        .sub_main_1>.adm_prof{
+            width: 100%;
+            height: 30%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-evenly;
+            font-weight: 600;
+        }
+        .sub_main_1>.adm_prof>.pic{
+            width: 40%;
+            height: 55%;
+            background-color: white;
+        }
+        .sub_main_1>button{
+            cursor: pointer;
+            width: 100%;
+            height: 7%;
+            font-size: 1.1rem;
+            font-family: sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: left;
+            padding-left: 10%;
+            background-color:transparent;
+            border: none;
+            outline: none;
+            color: rgba(236, 228, 228, 0.795);
+        }
+        .sub_main_1>button:hover{
+            background-color: #06070d;
+            color: white;
+            transition: 0.1s;
+            border-radius: 50px;
+        }
+        .sub_main_1>button>i{
+            font-size: 1.4rem;
+            margin-right: 5%;
+            color: rgba(206, 202, 202, 0.589);
+        }
+        .sub_main_2{
+            width: 75%;
+            height: 100%;
+            justify-content: space-evenly;
+            display: flex;
+            flex-direction: column;
+        }
+        .sub_main_2>.lslide{
+            display: none;
+            width: 100%;
+            height: 6%;
+            background-color: #292f34;
+        }
+        .sub_main_2>.lslide>#hamburger{
+            width: 8%;
+            height: 100%;
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            background-color: rgba(51, 116, 190, 0.849);
+        }
+        .data_showcase{
+            width: 100%;
+            height: 30%;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            /*background-color: #292f34;*/
+        }
+        .data_showcase>.d_detail{
+            width:20%;
+            height: 80%;
+            font-family: sans-serif;
+            font-weight: 700;
+            border-radius: 20px;
+            background-color: rgba(51, 116, 190, 0.849);
+        }
+        .data_showcase>.d_detail>#heading{
+            width: 100%;
+            height: 25%;
+            font-size: 1.3rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .data_showcase>.d_detail>#data{
+            width: 100%;
+            height: 75%;
+            font-size: 2.5rem;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+        .data_showcase>.d_detail>#data>i{
+            font-size: 2rem;
+            color: rgba(4, 4, 22, 0.281);
+        }
+        .dev_detail{
+            width: 100%;
+            height: 65%;
+            background-color: #292f34;
+        }
+        @media only screen and (max-width:1240px){
+            .admin_login>i{
+                width: 30%;
+            }
+        }
+        @media only screen and (max-width:1073px){
+
+            .data_showcase>.d_detail>#heading{
+                height: 40%;
+                font-size: 1.1rem;
+            }
+            .data_showcase>.d_detail>#data{
+                height: 55%;
+                font-size: 2.2rem;
+            }
+        }
+        @media only screen and (max-width:1050px){
+            .admin_login>i{
+                width: 34%;
+            }
+            .admin_login>.fillup>#admin_pass{
+                width: 80%;
+            }
+        }
+        @media only screen and (max-width:950px){
+            .admin_login>i{
+                width: 38%;
+            }
+            .sub_main_1{
+                width:24%;
+            }
+            .sub_main_2{
+                width: 68%;
+            }
+            .data_showcase>.d_detail{
+                width:23%;
+            }
+        }
+        @media only screen and (max-width:855px){
+            .admin_login>.fillup>i{
+                font-size: 1.8rem;
+            }
+            .sub_main_1{
+                width:25%;
+            }
+            .sub_main_1>button{
+                font-size: 1rem;
+            }
+            .sub_main_2{
+                width: 70%;
+            }
+            .data_showcase{
+                height: 25%;
+             }
+            .data_showcase>.d_detail{
+                width: 24%;
+             }
+            .data_showcase>.d_detail>#heading{
+                height: 40%;
+                font-size: 1.1rem;
+            }
+            .data_showcase>.d_detail>#data{
+                height: 55%;
+                font-size: 2rem;
+            }
+        }
+        @media only screen and (max-width:845px){
+            .admin_login>i{
+                width: 43%;
+            }
+            .admin_login>button{
+                width: 40%;
+            }
+        }
+        @media only screen and (max-width:745px){
+            .admin_login{
+                width: 60%;
+            }
+        }
+        @media only screen and (max-width:730px){
+            .data_showcase{
+                height: 20%;
+            }
+            .sub_main_1>.adm_prof{
+                height: 25%;
+            }
+            .data_showcase>.d_detail>#heading{
+                font-size: 1rem;
+            }
+            .data_showcase>.d_detail>#data{
+                font-size: 1.8rem;
+            }
+            .data_showcase>.d_detail>#data>i{
+                font-size: 1.8rem;
+            }
+            .sub_main_1{
+                width: 28%;
+            }
+            .dev_detail{
+                height: 68%;
+            }
+        }
+         @media only screen and (max-width:655px){
+            .admin_login{
+                width: 70%;
+            }
+            .admin_login>i{
+                width: 41%;
+            }
+            .main{
+                position: relative;
+            }
+            .sub_main_1{
+                position: absolute;
+                z-index: 2;
+                display: flex;
+                width: 40%;
+                left: -50%;
+                transition: .4s;
+                /*change*/
+                background-color:#292f34d0;
+            }
+            .sub_main_1>.adm_prof{
+                height: 25%;
+            }
+            .sub_main_2{
+                width: 95%;
+            }
+            .sub_main_2>.lslide{
+                display: flex;
+                flex-direction: row-reverse;
+            }
+            .dev_detail{
+                height: 63%;
+            }
+         }
+        @media only screen and (max-width:553px){
+            .admin_login{
+                width: 80%;
+            }
+            .sub_main_1{
+                left: -59%;
+                width: 55%;
+            }
+            .data_showcase{
+                height: 40%;
+                flex-direction: column;
+            }
+            .data_showcase>.d_detail{
+                display: flex;
+                width: 100%;
+                height: 20%;
+                border-radius: 0px;
+            }
+            .data_showcase>.d_detail>#data,.data_showcase>.d_detail>#heading{
+                height: 100%;
+            }
+            .data_showcase>.d_detail>#data{
+                width: 35%;
+            }
+            .data_showcase>.d_detail>#heading{
+                font-size: 1.5rem;
+                width: 65%;
+            }
+            .dev_detail{
+                height: 45%;
+            }
+            .sub_main_2>.lslide>#hamburger{
+                width: 10%;
+            }
+        }
+        @media only screen and (max-width:465px){
+            .admin_login{
+                width: 85%;
+            }
+        }
+        @media only screen and (max-width:435px){
+            .admin_login{
+                width: 90%;
+            }
+        }
+        @media only screen and (max-width:414px){
+            .admin_login>i{
+                width: 48%;
+            }
+        }
+        @media only screen and (max-width:390px){
+            .admin_login{
+                width: 96%;
+            }
+            .sub_main_2>.lslide>#hamburger{
+                width: 14%;
+            }
+        }
+        @media only screen and (max-width:375px){
+            .admin_login>i{
+                width: 50%;
+            }
+        }
+        @media only screen and (max-width:361px){
+            .admin_login>i{
+                width: 45%;
+            }
+        }
+        @media only screen and (max-width:320px){
+            .admin_login>.fillup>i{
+                font-size: 1.6rem;
+            }
+            .admin_login>i{
+                font-size: 6rem;
+            }
+        }
+    </style>
+    <body>
+        <div class="popup_modal">
+            <div class="admin_login">
+                <i class="fas fa-tools"></i>
+                <p id="admin_msg">please wait...</p>
+
+                <div class="fillup">
+                    <i class="fas fa-users"></i>
+                    <input id="admin_userid" name="userid" type="text" placeholder="Admin user-Id">
+                </div>
+
+                <div class="fillup">
+                    <i class="fas fa-lock"></i>
+                    <input id="admin_pass" name="pass" type="password" placeholder="Admin Password">
+                    <i class="fas fa-eye" id="eye"></i>
+                </div>
+
+                <button onclick="admin_login()">Admin Login</button>
+            </div>
+        </div>
+
+        <script>
+            if(Cookies.get('PotatoBackend-auth')=='valid'){
+                document.getElementsByClassName("popup_modal")[0].style.display = "none";
+            }
+        </script>
+
+        <div class="modal"></div>
+
+        <div class="main">
+
+            <div class="sub_main_1">
+
+                <div class="adm_prof">
+                    <div class="pic"></div>
+                    <p>Admin[<span>Nitin</span>]</p>
+                </div>
+
+                <button id="user_reg" onclick="load_user_reg()"><i class="fas fa-users"></i>User reg.</button>
+                <button id="user_edit" onclick="ed_ud_a()"><i class="fas fa-user-edit"></i>Edit User</button>
+                <button id="add_series" onclick="add_series()"><i class="fas fa-plus-square"></i>Add Series</button>
+                <button id="edit_series" onclick="ed_seri_a()"><i class="fas fa-edit"></i>Edit Series</button>
+                <button id="add_movies" onclick="add_movies()"><i class="far fa-plus-square"></i>Add Movie</button>
+                <button id="edit_movies" onclick="ed_md_a()"><i class="far fa-edit"></i>Edit Movie</button>
+                <button id="detail"><i class="fas fa-info-circle"></i>Media detail</button>
+                <button id="ads" onclick="ads()"><i class="fas fa-ad"></i>Advertisement</button>
+            </div>
+
+            <div class="sub_main_2">
+
+                <div class="lslide">
+                    <div id="hamburger" onclick="slider()">&#9776;</div>
+                </div>
+                <div class="data_showcase">
+
+                    <div class="d_detail">
+                        <p id="heading">Users</p>
+                        <p id="data" class="tuser"></p>
+                    </div>
+                    <div class="d_detail">
+                        <p id="heading">Anime Series</p>
+                        <p id="data" class="tseries"></p>
+                    </div>
+                    <div class="d_detail">
+                        <p id="heading">Movies</p>
+                        <p id="data" class="tmovies"></p>
+                    </div>
+                    <div class="d_detail">
+                        <p id="heading">Ads.</p>
+                        <p id="data" class="tads"></p>
+                    </div>
+
+                </div>
+                <div class="dev_detail"></div>
+            </div>
+        </div>
+    </body>
+    <script>
+
+        function Admin_Authentication(){
+            if(Cookies.get('PotatoBackend-auth')=='valid'){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+        var ApiEndPoint = "{{ApiEndPoint}}";
+        //console.log(ApiEndPoint)
+        //http://localhost:3135/
+
+        modal = document.getElementsByClassName("modal")[0];
+        
+        function get_api_detail(){
+            fetch(`${ApiEndPoint}api`)
+                .then(res => res.json() )
+                .then((data)=>{
+                    document.getElementsByClassName("tuser")[0].innerHTML = `<i class="fas fa-id-card"></i>`+data[0].total_user
+                    document.getElementsByClassName("tseries")[0].innerHTML = `<i class="fas fa-layer-group"></i>`+data[0].total_series
+                    document.getElementsByClassName("tmovies")[0].innerHTML = `<i class="fas fa-film"></i>`+data[0].total_movies
+                    document.getElementsByClassName("tads")[0].innerHTML = `<i class="fab fa-adversal"></i>`+data[0].total_ads
+
+                })
+                .catch(err => console.log(err))
+        }
+
+        get_api_detail();
+
+        function slider(){
+            document.getElementsByClassName("sub_main_1")[0].classList.toggle('active');
+        }
+//...............ADMIN LOGIN................................................
+        function admin_login(){
+            var admin_user_id = document.getElementById("admin_userid").value;
+            var admin_pass = document.getElementById("admin_pass").value;
+
+            if(admin_user_id != "" & admin_pass != ""){
+
+                document.getElementById("admin_msg").style.display = "flex";
+
+                $.post(`${ApiEndPoint}backend_admin/${admin_user_id}`,{pwd:admin_pass},(res)=>{
+                    if(res == true){
+                        document.getElementsByClassName("popup_modal")[0].style.display = "none";
+                        Cookies.set('PotatoBackend-auth','valid');
+                    }else{
+                        document.getElementById("admin_msg").innerText = "Invalid Admin";   
+                    }
+                }).fail( function(){
+                    swal({
+                        title:res.status,
+                        text:res.responseText,
+                        icon:"warning",
+                        button:"close!"
+                    })  
+                })
+            }else{
+                swal({
+                    title:"Error",
+                    text:"please fill the form.",
+                    icon:"warning",
+                    button:"close!"
+                })
+            }
+        }
+        
+//...............close function................................................
+        function close_modal(){
+            modal.style.display = "none";
+            modal.style.flexDirection = "";
+            modal.style.justifyContent = "";
+            $(".modal").empty();
+        };
+
+        function close_popup_modal(){
+            popup_modal.style.display = "none";
+        };
+
+//................user registration............................................
+        function load_user_reg(){
+            if(!Admin_Authentication()){
+                document.getElementById("admin_msg").style.display = "none";
+                document.getElementsByClassName("popup_modal")[0].style.display = "flex";
+            }else{
+                $(".modal").load("user_reg.hbs");
+                modal.style.display = "flex";
+            }
+        };
+
+        function user_reg(){
+            var data ={};
+
+            data.fname = document.getElementById("user_f_name").value;
+            data.lname = document.getElementById("user_l_name").value;
+            data.email = document.getElementById("user_em").value;
+            data.pwd = document.getElementById("user_pass").value;
+
+            if(data.fname !="" && data.lname !="" && data.email !="" && data.pwd !=""){
+                if(data.pwd == document.getElementById("user_pass_2").value){
+
+                    if(data.pwd.length>5){
+
+                        $.post(`${ApiEndPoint}user_details/`,data,function(res,status){
+                            
+                                swal({
+                                    title:"success",
+                                    text:res,
+                                    icon:"success",
+                                    button:"close!"
+                                })
+                                close_modal();
+                        })
+                        .done( function(){
+                            get_api_detail();
+                        })
+                        .fail( function(res){
+
+                            swal({
+                                title:res.status,
+                                text:res.responseText,
+                                icon:"warning",
+                                button:"close!"
+                            })
+                        })
+                        
+                        var inp = document.getElementsByTagName("input");
+                        Object.keys(inp).forEach((item)=>{
+                            inp[item].value = "";
+                        });
+
+                    }else{
+                        swal({
+                            title:"Error",
+                            text:"very short password",
+                            icon:"error",
+                            button:"close!"
+                        })
+                        var inp = document.getElementsByTagName("input");
+                        Object.keys(inp).forEach((item)=>{
+                            inp[item].value = "";
+                        });
+                    }
+                }else{
+                    swal({
+                        title:"Error",
+                        text:"password & confirm password are not matching.",
+                        icon:"warning",
+                        button:"close!"
+                    })
+                    
+                }
+            }else{
+                swal({
+                    title:"Error",
+                    text:"Please fill the form",
+                    icon:"warning",
+                    button:"close!"
+                })
+            }
+        }
+
+//................edit user details............................................
+        
+        //var u_data = {};
+        //var res_data;
+
+        function ed_ud_a(){
+
+            if(!Admin_Authentication()){
+                document.getElementById("admin_msg").style.display = "none";
+                document.getElementsByClassName("popup_modal")[0].style.display = "flex";
+            }else{
+                u_data={}
+                $(".modal").load("edit_ud_a.hbs");
+                modal.style.display = "flex";
+            }
+        }
+
+        function ed_ud_a_back(){
+            $(".modal").empty();
+            $(".modal").load("edit_ud_a.hbs",()=>{
+                document.getElementsByTagName('input')[0].value = u_data.fname;
+                document.getElementsByTagName('input')[1].value = u_data.lname;
+                document.getElementsByTagName('input')[2].value = u_data.email;
+            });
+            
+        }
+
+        function ed_ud_b_back(){
+            $(".modal").load("edit_ud_b.hbs",()=>{
+                res_data.forEach((item)=>{
+
+                    var slot_div = document.createElement('DIV');
+                    slot_div.className = "user_d_slot";
+                    slot_div.innerHTML = `<div class="user_d_heading_2">
+                                            <div class="d_box" id="id">ID</div>
+                                            <div class="d_box" id="fname">First Name</div>
+                                            <div class="d_box" id="lname">Last Name</div>
+                                            <div class="d_box" id="u_email">Email</div>
+                                            <div class="space"></div>
+                                            </div>`;
+
+                    var div = document.createElement('DIV');
+                    div.className = "user_d";
+
+                    var id_div = document.createElement('DIV');
+                    id_div.className = "d_box";
+                    id_div.id = item.user_id;
+                    id_div.innerText = item.user_id;
+                    div.appendChild(id_div);
+
+                    var fname_div = document.createElement('DIV');
+                    fname_div.className = "d_box";
+                    fname_div.id = item.fname;
+                    fname_div.innerText = item.fname;
+                    div.appendChild(fname_div);
+
+                    var lname_div = document.createElement('DIV');
+                    lname_div.className = "d_box";
+                    lname_div.id = item.lname;
+                    lname_div.innerText = item.lname;
+                    div.appendChild(lname_div);
+
+                    var em_div = document.createElement('DIV');
+                    em_div.className = "d_box";
+                    em_div.id = item.email;
+                    em_div.innerText = item.email;
+                    div.appendChild(em_div);
+
+                    var btn = document.createElement("BUTTON");
+                    btn.id = item.user_id;
+                    btn.innerHTML = `<i class="far fa-edit"></i>`
+                    btn.setAttribute('onclick','ed_ud_c(this)');
+                    div.appendChild(btn);
+                    slot_div.appendChild(div);
+
+                    document.getElementsByClassName("main_ud_b")[0].appendChild(slot_div)
+
+                })
+
+            });
+        }
+
+        function ed_ud_b(){
+            u_data.fname = document.getElementById("user_f_name").value;
+            u_data.lname = document.getElementById("user_l_name").value;
+            u_data.email = document.getElementById("user_em").value;
+
+            if(u_data.fname !="" && u_data.lname !="" && u_data.email !=""){
+                
+                //get data from api based on the filled data.
+
+                $.get(`${ApiEndPoint}user_details/${u_data.fname}/${u_data.lname}`,(res)=>{
+                    if( typeof res != String && res.length !=0){
+                        res_data = res;
+                        //console.log(res);
+
+                        $(".modal").load("edit_ud_b.hbs",()=>{
+                            res.forEach((item)=>{
+
+                                var slot_div = document.createElement('DIV');
+                                slot_div.className = "user_d_slot";
+                                slot_div.innerHTML = `<div class="user_d_heading_2">
+                                                        <div class="d_box" id="id">ID</div>
+                                                        <div class="d_box" id="fname">First Name</div>
+                                                        <div class="d_box" id="lname">Last Name</div>
+                                                        <div class="d_box" id="u_email">Email</div>
+                                                        <div class="space"></div>
+                                                     </div>`;
+
+                                var div = document.createElement('DIV');
+                                div.className = "user_d";
+
+                                var id_div = document.createElement('DIV');
+                                id_div.className = "d_box";
+                                id_div.id = item.user_id;
+                                id_div.innerText = item.user_id;
+                                div.appendChild(id_div);
+
+                                var fname_div = document.createElement('DIV');
+                                fname_div.className = "d_box";
+                                fname_div.id = item.fname;
+                                fname_div.innerText = item.fname;
+                                div.appendChild(fname_div);
+
+                                var lname_div = document.createElement('DIV');
+                                lname_div.className = "d_box";
+                                lname_div.id = item.lname;
+                                lname_div.innerText = item.lname;
+                                div.appendChild(lname_div);
+
+                                var em_div = document.createElement('DIV');
+                                em_div.className = "d_box";
+                                em_div.id = item.email;
+                                em_div.innerText = item.email;
+                                div.appendChild(em_div);
+
+                                var btn = document.createElement("BUTTON");
+                                btn.id = item.user_id;
+                                btn.innerHTML = `<i class="far fa-edit"></i>`
+                                btn.setAttribute('onclick','ed_ud_c(this)');
+                                div.appendChild(btn);
+
+                                slot_div.appendChild(div);
+
+                                document.getElementsByClassName("main_ud_b")[0].appendChild(slot_div)
+
+                            })
+
+                        });
+                       
+                    }else{
+                        swal({
+                            title:"404",
+                            text:"Data Not Found",
+                            icon:"warning",
+                            button:"close!"
+                        })
+                    }
+                    
+                });
+                //modal.style.display = "flex";
+            }else{
+                swal({
+                    title:"Error",
+                    text:"Please fill the form",
+                    icon:"warning",
+                    button:"close!"
+                })
+            }
+        }
+
+        function ed_ud_c(e){
+
+            //console.log(e.id);
+            $.get(`${ApiEndPoint}user_details/${e.id}`,(res)=>{
+
+                $(".modal").load("edit_ud_c.hbs",()=>{
+
+                    document.getElementById("user_id").value = res.user_id;
+                    document.getElementById("user_f_name").value = res.fname;
+                    document.getElementById("user_l_name").value = res.lname;
+                    document.getElementById("user_em").value = res.email;
+                    document.getElementById("user_pass").value = "";
+                    document.getElementById("user_pass_2").value = "";
+                    
+                });
+            })
+           
+            //modal.style.display = "flex";
+        };
+
+        function ud_update(){
+            var up_data={}
+            var u_id = document.getElementById("user_id").value;
+
+            up_data.fname = document.getElementById("user_f_name").value;
+            up_data.lname = document.getElementById("user_l_name").value;
+            up_data.email = document.getElementById("user_em").value;
+            up_data.pwd = document.getElementById("user_pass").value;
+
+            if(up_data.fname !="" && up_data.lname !="" && up_data.email !="" && up_data.pwd !=""){
+                if(up_data.pwd == document.getElementById("user_pass_2").value){
+                    if(up_data.pwd.length>5){
+
+                        console.log(up_data);
+
+                        $.post(`${ApiEndPoint}patch/user_details/${u_id}`,up_data,function(res,status){
+                            
+                            swal({
+                                title:"success",
+                                text:res,
+                                icon:"success",
+                                button:"close!"
+                            })
+                        })
+                        .done( function(){
+                            get_api_detail();
+                        })
+                        .fail( function(res){
+
+                            swal({
+                                title:res.status,
+                                text:res.responseText,
+                                icon:"warning",
+                                button:"close!"
+                            })
+                        })
+                        
+                    }else{
+                        swal({
+                            title:"Error",
+                            text:"very short password",
+                            icon:"warning",
+                            button:"close!"
+                        })
+                    }
+                }else{
+                    swal({
+                        title:"Error",
+                        text:"passwords are not matching",
+                        icon:"warning",
+                        button:"close!"
+                    })
+                }
+            }else{
+                swal({
+                        title:"Error",
+                        text:"please fill the form.",
+                        icon:"warning",
+                        button:"close!"
+                    })
+            }
+            
+        }
+//................ADD Series............................................
+        
+        //onchange="myScript()"
+
+        function add_series(){
+            if(!Admin_Authentication()){
+                document.getElementById("admin_msg").style.display = "none";
+                document.getElementsByClassName("popup_modal")[0].style.display = "flex";
+            }else{
+                $(".modal").load("add_series_a.hbs");
+                modal.style.display = "flex";
+                sl = 0;
+                Series_data = {};
+                epds = [];
+            }
+        }
+        
+        function add_series_b(){
+            chk = 1;
+            for (var y = 0; y<document.getElementsByTagName("input").length ;y++){
+                if(document.getElementsByTagName("input")[y].value != ""){
+                    if(document.getElementsByTagName("textarea")[0].value != ""){
+                        continue;
+                    }else{
+                        chk = 0;
+                        break;
+                    }
+                }else{
+                    chk = 0;
+                    break;
+                }
+            }
+
+            if(chk != 0){
+                a = [];
+                Series_data.name = document.getElementsByTagName("input")[0].value;
+                Series_data.director = document.getElementsByTagName("input")[1].value;
+                Series_data.release_year = document.getElementsByTagName("input")[2].value;
+                Series_data.imdb = document.getElementsByTagName("input")[3].value;
+                Series_data.total_episodes = document.getElementsByTagName("input")[4].value;
+                Series_data.banner_URL = document.getElementsByTagName("input")[5].value;
+
+                Series_data.discription = document.getElementsByTagName("textarea")[0].value;
+
+                a.push(document.getElementsByTagName("select")[0].value);
+                a.push(document.getElementsByTagName("select")[1].value);
+
+                Series_data.genres = a;
+                delete a;
+
+                $(".modal").load("add_series_b.hbs",()=>{
+                    if(epds.length!=0){
+                        epds.forEach((item)=>{
+
+                            var DIV = document.createElement('div');
+                            DIV.className = "slot";
+                            DIV.id = "slot_"+ sl.toString();
+
+                            inhtm = [
+                            `<i class="fas fa-angle-double-down"></i>
+                            <input id="epno_${sl}" name="user_f_name" type="text" placeholder="ep-no" value="${item.episode_no}" autocomplete="off">`,
+
+                            `<i class="fas fa-file-video"></i>
+                            <input id="epname_${sl}" name="user_f_name" type="text" placeholder="episode name" value="${item.episode_name}" autocomplete="off">`,
+
+                            `<i class="fas fa-link"></i>
+                            <input id="eplink_${sl}" name="user_f_name" type="text" placeholder="link" value="${item.episode_URL}" autocomplete="off">`,
+                            
+                            `<button class="del" id="${sl}" onclick="del_slot(this)">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>`
+                            ]
+
+                            inhtm.forEach((item)=>{
+                                var div_f = document.createElement('div');
+                                div_f.className = "fillup";
+                                div_f.innerHTML = item ;
+                                DIV.appendChild(div_f);
+                            });
+
+                            document.getElementsByClassName("ep_details")[0].appendChild(DIV);
+                            sl = sl+1;
+                        })
+                    }
+                })
+            }else{
+                swal({
+                    title:"Error",
+                    text:"please fill the form!",
+                    icon:"warning",
+                    button:"close!"
+                })
+            }
+        };
+
+        function add_series_back(){
+
+            epds = [];
+            temp1 = document.getElementsByClassName("slot");
+
+            if(temp1.length != 0){
+                for(var i=0 ;i<temp1.length;i++){
+
+                    darry = [];
+                    odata = {};
+                    temp2 =  temp1[i].querySelectorAll("input");
+
+                    for(var j=0; j<temp2.length; j++){
+
+                            darry.push(temp2[j].value)
+                    }
+                    odata.episode_no = darry[0];
+                    odata.episode_name = darry[1];
+                    odata.episode_URL = darry[2];
+
+                    epds.push(odata);
+
+                    delete darry;
+                    delete odata;
+                }
+                delete temp1;
+                delete temp2;
+            }
+
+            $(".modal").load("add_series_a.hbs",()=>{
+                document.getElementsByTagName("input")[0].value = Series_data.name;
+                document.getElementsByTagName("input")[1].value = Series_data.director;
+                document.getElementsByTagName("input")[2].value = Series_data.release_year;
+                document.getElementsByTagName("input")[3].value = Series_data.imdb;
+                document.getElementsByTagName("input")[4].value = Series_data.total_episodes;
+                document.getElementsByTagName("input")[5].value = Series_data.banner_URL;
+
+                document.getElementsByTagName("select")[0].value = Series_data.genres[0];
+                document.getElementsByTagName("select")[1].value = Series_data.genres[1];
+                document.getElementsByTagName("textarea")[0].value = Series_data.discription; 
+            });
+        };
+
+        function add_ep(){
+            var DIV = document.createElement('div');
+            DIV.className = "slot";
+            DIV.id = "slot_"+ sl.toString();
+
+            inhtm = [
+            `<i class="fas fa-angle-double-down"></i>
+            <input id="epno_${sl}" name="user_f_name" type="text" placeholder="ep-no" autocomplete="off">`,
+
+            `<i class="fas fa-file-video"></i>
+            <input id="epname_${sl}" name="user_f_name" type="text" placeholder="episode name" autocomplete="off">`,
+
+            `<i class="fas fa-link"></i>
+            <input id="eplink_${sl}" name="user_f_name" type="text" placeholder="link" autocomplete="off">`,
+            
+            `<button class="del" id="${sl}" onclick="del_slot(this)">
+                <i class="fas fa-trash-alt"></i>
+            </button>`
+            ]
+
+            inhtm.forEach((item)=>{
+                var div_f = document.createElement('div');
+                div_f.className = "fillup";
+                div_f.innerHTML = item ;
+                DIV.appendChild(div_f);
+                delete div_f;
+            })
+
+            document.getElementsByClassName("ep_details")[0].appendChild(DIV);
+            sl = sl+1;
+        };
+
+        function del_slot(e){
+            document.getElementById("slot_"+e.id).remove();
+        }
+
+        function sreg(){
+            epds=[]
+            temp1 = document.getElementsByClassName("slot");
+            if(temp1.length != 0){
+                for(var i=0 ;i<temp1.length;i++){
+
+                    darry = [];
+                    odata = {};
+                    temp2 =  temp1[i].querySelectorAll("input");
+
+                    for(var j=0; j<temp2.length; j++){
+                        if(temp2[j].value !=""){
+                            darry.push(temp2[j].value)
+                        }else{
+                            swal({
+                                title:"Error",
+                                text:"Incomplite details !",
+                                icon:"warning",
+                                button:"close!"
+                            })
+                            return;
+                        }
+                    }
+                    odata.episode_no = darry[0];
+                    odata.episode_name = darry[1];
+                    odata.episode_URL = darry[2];
+
+                    epds.push(odata);
+
+                    delete darry;
+                    delete odata;
+                }
+                Series_data.episodes = epds; 
+
+                Series_data.total_episodes = Series_data.episodes.length;
+        
+                console.log(Series_data);
+                $.post(`${ApiEndPoint}series_details`,Series_data,(res)=>{
+                    swal({
+                        title:"registered",
+                        text:res,
+                        icon:"success",
+                        button:"close!"
+                    })
+                    close_modal();
+                })
+                .done( function(){
+                    get_api_detail();
+                })
+                .fail(function(res){
+                    swal({
+                        title:res.status,
+                        text:res.responseText,
+                        icon:"warning",
+                        button:"close!"
+                    })
+                })
+
+                delete temp1;
+                delete temp2;
+                delete epds;
+                delete sl;
+                delete Series_data;
+
+                close_modal()
+
+            }else{
+                
+                swal({
+                    title:"Add episode",
+                    icon:"info",
+                    button:"close!"
+                })
+            }
+        }
+//................EDIT Series............................................
+        function ed_seri_a(){
+            if(!Admin_Authentication()){
+                document.getElementById("admin_msg").style.display = "none";
+                document.getElementsByClassName("popup_modal")[0].style.display = "flex";
+            }else{
+                sl = 0;
+                series_data = {};
+                series_cred = {};
+
+                $(".modal").load("edit_sd_a.hbs");
+                modal.style.display = "flex";
+            }
+        }
+
+        function ed_seri_a_back(){
+            if(series_cred.s_id != "" || series_cred.s_name != ""){
+                $(".modal").load("edit_sd_a.hbs",()=>{
+                    document.getElementById("s_id").value = series_cred.s_id;
+                    document.getElementById("s_name").value = series_cred.s_name;
+                })
+            }else{
+                $(".modal").load("edit_sd_a.hbs");
+            }
+        }
+
+        function ed_seri_b_back(){
+
+            epds = [];
+            temp1 = document.getElementsByClassName("slot");
+
+            if(temp1.length != 0){
+                for(var i=0 ;i<temp1.length;i++){
+
+                    darry = [];
+                    odata = {};
+                    temp2 =  temp1[i].querySelectorAll("input");
+
+                    for(var j=0; j<temp2.length; j++){
+
+                            darry.push(temp2[j].value)
+                    }
+                    odata.episode_no = darry[0];
+                    odata.episode_name = darry[1];
+                    odata.episode_URL = darry[2];
+
+                    epds.push(odata);
+                    series_data.episodes = epds;
+
+                    delete darry;
+                    delete odata;
+                }
+                delete temp1;
+                delete temp2;
+            }
+
+            $(".modal").load("edit_sd_b.hbs",()=>{
+
+                document.getElementsByTagName("input")[0].value = series_data.name;
+                document.getElementsByTagName("input")[1].value = series_data.director;
+                document.getElementsByTagName("input")[2].value = series_data.release_year;
+                document.getElementsByTagName("input")[3].value = series_data.imdb;
+                document.getElementsByTagName("input")[4].value = series_data.total_episodes;
+                document.getElementsByTagName("input")[5].value = series_data.banner_URL;
+
+                document.getElementsByTagName("select")[0].value = series_data.genres[0];
+                document.getElementsByTagName("select")[1].value = series_data.genres[1];
+                document.getElementsByTagName("textarea")[0].value = series_data.discription;
+            })
+        }
+
+        function ed_seri_b(){
+            series_cred.s_id =  document.getElementById("s_id").value;
+            series_cred.s_name =  document.getElementById("s_name").value;
+
+            if(series_cred.s_id !="" || series_cred.s_name !=""){
+
+                //$(".modal").load("edit_sd_b.hbs");
+
+                if(series_cred.s_id !=""){
+                    //serach based on series id
+                    $.get(`${ApiEndPoint}series_details/${series_cred.s_id}`,(res)=>{
+
+                        if(typeof res != String && res.length != 0 ){
+                            series_data = res;
+                            $(".modal").load("edit_sd_b.hbs",()=>{
+                                document.getElementsByTagName("input")[0].value = res.name;
+                                document.getElementsByTagName("input")[1].value = res.director;
+                                document.getElementsByTagName("input")[2].value = res.release_year;
+                                document.getElementsByTagName("input")[3].value = res.imdb;
+                                document.getElementsByTagName("input")[4].value = res.total_episodes;
+                                document.getElementsByTagName("input")[5].value = res.banner_URL;
+
+                                document.getElementsByTagName("select")[0].value = res.genres[0];
+                                document.getElementsByTagName("select")[1].value = res.genres[1];
+                                document.getElementsByTagName("textarea")[0].value = res.discription;
+                            });
+                        }else{
+                           swal({
+                                title:"Error",
+                                text:"id not found",
+                                icon:"warning",
+                                button:"close!"
+                            })
+                        }
+                    })
+                }else{
+                    //serach based on series name
+                    $.get(`${ApiEndPoint}series_details/name/${series_cred.s_name}`,(res)=>{
+
+                        if(typeof res != String && res.length != 0 ){
+                            series_data = res;
+                            $(".modal").load("edit_sd_b.hbs",()=>{
+                                document.getElementsByTagName("input")[0].value = res.name;
+                                document.getElementsByTagName("input")[1].value = res.director;
+                                document.getElementsByTagName("input")[2].value = res.release_year;
+                                document.getElementsByTagName("input")[3].value = res.imdb;
+                                document.getElementsByTagName("input")[4].value = res.total_episodes;
+                                document.getElementsByTagName("input")[5].value = res.banner_URL;
+
+                                document.getElementsByTagName("select")[0].value = res.genres[0];
+                                document.getElementsByTagName("select")[1].value = res.genres[1];
+                                document.getElementsByTagName("textarea")[0].value = res.discription;
+                            });
+                        }else{
+                            pop_up("invalid series ID!");
+                        }
+                    })
+                }
+               
+            }else{
+                swal({
+                    title:"Error",
+                    text:"Please fill the form!",
+                    icon:"warning",
+                    button:"close!"
+                })
+            }
+
+            /*modal.style.display = "flex";*/
+        }
+
+        function ed_seri_c(){
+
+            chk = 1;
+            for (var y = 0; y<document.getElementsByTagName("input").length ;y++){
+                if(document.getElementsByTagName("input")[y].value != "" && document.getElementsByTagName("input")[y].value != undefined){
+                    if(document.getElementsByTagName("textarea")[0].value != "" && document.getElementsByTagName("textarea")[0].value != undefined){
+                        continue;
+                    }else{
+                        chk = 0;
+                        break;
+                    }
+                }else{
+                    chk = 0;
+                    break;
+                }
+            }
+
+            if(chk != 0){
+                a = [];
+                series_data.name = document.getElementsByTagName("input")[0].value;
+                series_data.director = document.getElementsByTagName("input")[1].value;
+                series_data.release_year = document.getElementsByTagName("input")[2].value;
+                series_data.imdb = document.getElementsByTagName("input")[3].value;
+                series_data.total_episodes = document.getElementsByTagName("input")[4].value;
+                series_data.banner_URL = document.getElementsByTagName("input")[5].value;
+
+                series_data.discription = document.getElementsByTagName("textarea")[0].value;
+
+                a.push(document.getElementsByTagName("select")[0].value);
+                a.push(document.getElementsByTagName("select")[1].value);
+
+                series_data.genres = a;
+                delete a;
+
+                $(".modal").load("edit_sd_c.hbs",()=>{
+                    series_data.episodes.forEach((item)=>{
+
+                        var DIV = document.createElement('div');
+                        DIV.className = "slot";
+                        DIV.id = "slot_"+ sl.toString();
+
+                        inhtm = [
+                        `<i class="fas fa-angle-double-down"></i>
+                        <input id="epno_${sl}" name="user_f_name" type="text" placeholder="ep-no" value="${item.episode_no}" autocomplete="off">`,
+
+                        `<i class="fas fa-file-video"></i>
+                        <input id="epname_${sl}" name="user_f_name" type="text" placeholder="episode name" value="${item.episode_name}" autocomplete="off">`,
+
+                        `<i class="fas fa-link"></i>
+                        <input id="eplink_${sl}" name="user_f_name" type="text" placeholder="link" value="${item.episode_URL}" autocomplete="off">`,
+                        
+                        `<button class="del" id="${sl}" onclick="del_slot(this)">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>`
+                        ]
+
+                        inhtm.forEach((item)=>{
+                            var div_f = document.createElement('div');
+                            div_f.className = "fillup";
+                            div_f.innerHTML = item ;
+                            DIV.appendChild(div_f);
+                        });
+
+                        document.getElementsByClassName("ep_details")[0].appendChild(DIV);
+                        sl = sl+1;
+
+                    })
+                });
+                //modal.style.display = "flex";
+
+            }else{
+                swal({
+                    title:"Error",
+                    text:"Please fill the form!",
+                    icon:"warning",
+                    button:"close!"
+                })
+            }
+        }
+
+        function sd_update(){
+            epds=[]
+            temp1 = document.getElementsByClassName("slot");
+            if(temp1.length != 0){
+                for(var i=0 ;i<temp1.length;i++){
+
+                    darry = [];
+                    odata = {};
+                    temp2 =  temp1[i].querySelectorAll("input");
+
+                    for(var j=0; j<temp2.length; j++){
+                        if(temp2[j].value !=""){
+                            darry.push(temp2[j].value)
+                        }else{
+                            swal({
+                                title:"Error",
+                                text:"Incomplite details !",
+                                icon:"warning",
+                                button:"close!"
+                            })
+                            return;
+                        }
+                    }
+                    odata.episode_no = darry[0];
+                    odata.episode_name = darry[1];
+                    odata.episode_URL = darry[2];
+
+                    epds.push(odata);
+
+                    delete darry;
+                    delete odata;
+                }
+                series_data.episodes = epds;
+                series_data.total_episodes = series_data.episodes.length;
+
+                console.log(series_data);
+                delete temp1;
+                delete temp2;
+                delete epds;
+                delete sl;
+                swal({
+                    title:"set to go!",
+                    icon:"success",
+                    button:"close!"
+                })
+
+                $.post(`${ApiEndPoint}series_details/${series_data.series_id}`,series_data,(res)=>{
+                    swal({
+                        title:"updated",
+                        text:res,
+                        icon:"success",
+                        button:"close!"
+                    })
+                }).fail(function(res){
+                    swal({
+                        title:res.status,
+                        text:res.responseText,
+                        icon:"warning",
+                        button:"close!"
+                    })
+                })
+
+                delete series_data;
+                close_modal()
+            }else{
+                swal({
+                    title:"Add Episode!",
+                    icon:"warning",
+                    button:"close!"
+                })
+            }
+        }
+       
+//................ADD MOVIES............................................
+        function add_movies(){
+            if(!Admin_Authentication()){
+                document.getElementById("admin_msg").style.display = "none";
+                document.getElementsByClassName("popup_modal")[0].style.display = "flex";
+            }else{
+                movie_data = {};
+                $(".modal").load("add_movie.hbs");
+                modal.style.display = "flex";
+                modal.style.flexDirection = "row";
+                modal.style.justifyContent = "space-evenly"
+            }
+        }
+
+        function movie_reg(){
+            a = [];
+
+            movie_data.name = document.getElementById("movie_name").value;
+            movie_data.director = document.getElementById("movie_dir").value;
+            movie_data.release_year = document.getElementById("movie_yr").value;
+            movie_data.imdb = document.getElementById("movie_imdb").value;
+            movie_data.banner_URL = document.getElementById("movie_bl").value;
+            movie_data.movie_URL = document.getElementById("movie_gdl").value;
+
+            movie_data.description = document.getElementsByTagName("textarea")[0].value;
+            a.push(document.getElementsByTagName("select")[0].value);
+            a.push(document.getElementsByTagName("select")[1].value);
+
+            movie_data.genres = a;
+            delete a;
+
+            if(movie_data.name != "" && 
+                movie_data.director!="" &&
+                movie_data.release_year != "" &&
+                movie_data.imdb != "" &&
+                movie_data.banner_URL != "" &&
+                movie_data.movie_URL != "" &&
+                movie_data.description != "" &&
+                movie_data.description.length > 0){
+
+                    $.post(`${ApiEndPoint}movie_details`,movie_data,(res)=>{
+                        swal({
+                            title:"registered",
+                            text:res,
+                            icon:"success",
+                            button:"close!"
+                        })
+                        delete movie_data;
+                        close_modal();
+
+                    })
+                    .done( function(){
+                        get_api_detail();
+                    })
+                    .fail(function(res){
+                        swal({
+                            title:res.status,
+                            text:res.responseText,
+                            icon:"warning",
+                            button:"close!"
+                        })
+                    })
+
+                    console.log(movie_data);
+
+            }else{
+                swal({
+                    title:"Please fill the form!",
+                    icon:"warning",
+                    button:"close!"
+                })
+            }
+        }
+//................EDIT MOVIES............................................
+        function ed_md_a(){
+            if(!Admin_Authentication()){
+                document.getElementById("admin_msg").style.display = "none";
+                document.getElementsByClassName("popup_modal")[0].style.display = "flex";
+            }else{
+                movie_cred = {}
+                movie_data = {}
+
+                $(".modal").load("edit_md_a.hbs");
+                modal.style.display = "flex";
+            }
+        }
+
+        function ed_md_a_back(){
+            $(".modal").load("edit_md_a.hbs",()=>{
+                document.getElementById("mid").value = movie_cred.id;
+                document.getElementById("mname").value = movie_cred.name;
+            });
+        }
+
+        function ed_md_b(){
+            
+            movie_cred.id = document.getElementById("mid").value;
+            movie_cred.name = document.getElementById("mname").value;
+
+            if(movie_cred.id !="" || movie_cred.name !=""){
+
+                //search based on id
+                if(movie_cred.id !=""){
+                    $.get(`${ApiEndPoint}movie_details/${movie_cred.id}`,(res)=>{
+
+                        if(typeof res != String && res.length != 0 && res != undefined){
+                            console.log(res);
+                            movie_data = res;
+
+                            $(".modal").load("edit_md_b.hbs",()=>{
+                                document.getElementById("movie_name").value = movie_data.name;
+                                document.getElementById("movie_dir").value = movie_data.director;
+                                document.getElementById("movie_yr").value =  movie_data.release_year;
+                                document.getElementById("movie_imdb").value = movie_data.imdb;
+                                document.getElementById("movie_bl").value = movie_data.banner_URL;
+                                document.getElementById("movie_gdl").value = movie_data.movie_URL;
+
+                                document.getElementsByTagName("textarea")[0].value = movie_data.description;
+
+                                document.getElementsByTagName("select")[0].value = movie_data.genres[0];
+                                document.getElementsByTagName("select")[1].value =  movie_data.genres[1];
+                            });
+                            modal.style.display = "flex";
+                            modal.style.flexDirection = "row";
+                            modal.style.justifyContent = "space-evenly"
+                        }else{
+                            swal({
+                                title:"Error",
+                                text:"id not found",
+                                icon:"warning",
+                                button:"close!"
+                            })
+                        }
+                    })
+                }else{
+                    //search based on movies name
+                    $.get(`${ApiEndPoint}movie_details/name/${movie_cred.name}`,(res)=>{
+                        if(typeof res != String && res.length != 0 && res != undefined){
+                            console.log(res);
+                            movie_data = res;
+
+                            $(".modal").load("edit_md_b.hbs",()=>{
+                                document.getElementById("movie_name").value = movie_data.name;
+                                document.getElementById("movie_dir").value = movie_data.director;
+                                document.getElementById("movie_yr").value =  movie_data.release_year;
+                                document.getElementById("movie_imdb").value = movie_data.imdb;
+                                document.getElementById("movie_bl").value = movie_data.banner_URL;
+                                document.getElementById("movie_gdl").value = movie_data.movie_URL;
+
+                                document.getElementsByTagName("textarea")[0].value = movie_data.description;
+
+                                document.getElementsByTagName("select")[0].value = movie_data.genres[0];
+                                document.getElementsByTagName("select")[1].value =  movie_data.genres[1];
+                            });
+                            modal.style.display = "flex";
+                            modal.style.flexDirection = "row";
+                            modal.style.justifyContent = "space-evenly"
+                        }else{
+                            swal({
+                                title:"Error",
+                                text:"This name is not found",
+                                icon:"warning",
+                                button:"close!"
+                            })
+                        }
+                    })
+                }
+                
+            }else{
+                swal({
+                    title:"Please fill the form!",
+                    icon:"warning",
+                    button:"close!"
+                })
+            }
+        }
+
+        function movie_update(){
+            a = [];
+            //movie_data = {};
+
+            movie_data.name = document.getElementById("movie_name").value;
+            movie_data.director = document.getElementById("movie_dir").value;
+            movie_data.release_year = document.getElementById("movie_yr").value;
+            movie_data.imdb = document.getElementById("movie_imdb").value;
+            movie_data.banner_URL = document.getElementById("movie_bl").value;
+            movie_data.movie_URL = document.getElementById("movie_gdl").value;
+
+            movie_data.description = document.getElementsByTagName("textarea")[0].value;
+            a.push(document.getElementsByTagName("select")[0].value);
+            a.push(document.getElementsByTagName("select")[1].value);
+
+            movie_data.genres = a;
+            delete a;
+
+            if(movie_data.name != "" && 
+                movie_data.director!="" &&
+                movie_data.release_year != "" &&
+                movie_data.imdb != "" &&
+                movie_data.banner_URL != "" &&
+                movie_data.movie_URL != "" &&
+                movie_data.description != "" &&
+                movie_data.genres.length > 0){
+
+                   $.post(`${ApiEndPoint}movie_details/${movie_data.movie_id}`,movie_data,(res)=>{
+                        swal({
+                            title:"updated",
+                            text:res,
+                            icon:"success",
+                            button:"close!"
+                        })
+
+                        delete movie_data;
+                        close_modal()
+
+                    }).fail(function(res){
+                        swal({
+                            title:res.status,
+                            text:res.responseText,
+                            icon:"warning",
+                            button:"close!"
+                        })
+                    })
+
+            }else{
+                swal({
+                    title:"Please fill the form!",
+                    icon:"warning",
+                    button:"close!"
+                })
+            }
+        }
+//................ADD ADVERTISEMENT............................................
+        function ads(){
+            if(!Admin_Authentication()){
+                document.getElementById("admin_msg").style.display = "none";
+                document.getElementsByClassName("popup_modal")[0].style.display = "flex";
+            }else{
+                $(".modal").load("advertisement.hbs");
+                modal.style.display = "flex";
+            }
+        }
+
+        function ads_reg(){
+            ads_data = {};
+
+            ads_data.organization = document.getElementById("org_name").value;
+            ads_data.duration = Number(document.getElementById("ads_duration").value);
+            ads_data.ads_URL = document.getElementById("ads_link").value;
+            ads_data.catogory = document.getElementById("catogory").value;
+            ads_data.type = document.getElementById("type").value;
+
+            ads_data.price = ads_data.duration*10;
+
+            if(ads_data.organization !="" &&
+                ads_data.duration != NaN &&
+                ads_data.ads_URL != "" &&
+                ads_data.catogory != "" &&
+                ads_data.type != ""
+            ){
+                $.post(`${ApiEndPoint}ads_details`,ads_data,(res)=>{
+                    swal({
+                        title:"registered",
+                        text:res,
+                        icon:"success",
+                        button:"close!"
+                    })
+                    console.log(ads_data);
+                    delete ads_data;
+                    close_modal();
+                    
+                })
+                .done( function(){
+                    get_api_detail();
+                })
+                .fail(function(res){
+                    swal({
+                        title:res.status,
+                        text:res.responseText,
+                        icon:"warning",
+                        button:"close!"
+                    })
+                })
+
+            }else{
+                swal({
+                    title:"Please fill the form!",
+                    icon:"warning",
+                    button:"close!"
+                })
+            }
+        }
+    </script>
+</html>

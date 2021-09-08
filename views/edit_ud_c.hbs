@@ -1,0 +1,204 @@
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+    .control {
+        width: 100%;
+        height: 10%;
+        display: block;
+        position: relative;
+        background-color: white;
+    }
+
+    .control>.back,
+    .control>.close {
+        cursor: pointer;
+        width: 20%;
+        height: 80%;
+        font-family: sans-serif;
+        font-size: 1.3rem;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 20px;
+        position: absolute;
+        top: 5%;
+        color: white;
+        background-image: linear-gradient(to right, rgb(37, 37, 201), rgb(120, 45, 190));
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    .control>.back {
+        left: 1%;
+    }
+
+    .control>.close {
+        right: 1%;
+    }
+
+    .signup {
+        position: relative;
+        width: 35%;
+        height: 80%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: white;
+    }
+    
+    .signup>p {
+        font-family: sans-serif;
+        font-size: 2rem;
+        font-weight: bold;
+        margin-top: 1%;
+        margin-bottom: 4%;
+        color: black;
+    }
+
+    .fillup {
+        width: 95%;
+        height: 9%;
+        margin-bottom: 2.5%;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        border-radius: 40px;
+        background-color: white;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    .fillup>i {
+        font-size: 2rem;
+        color: rgb(113, 46, 236);
+    }
+
+    .fillup>input {
+        width: 85%;
+        height: 100%;
+        font-size: 1.2rem;
+        text-align: left;
+        padding-left: 1%;
+        border-radius: 40px;
+        outline: none;
+        border: none;
+        background: transparent;
+    }
+
+    .signup>button {
+        width: 30%;
+        height: 8%;
+        border: none;
+        border-radius: 40px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        /*margin-top: 1%;*/
+        cursor: pointer;
+        color: white;
+        background-image: linear-gradient(to right, rgb(37, 37, 201), rgb(120, 45, 190));
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+    @media screen and (max-width:1085px){
+        .control>.back,
+        .control>.close {
+            width: 25%; 
+            font-size: 1.2rem;
+        }
+        .signup>p{
+            font-size: 1.7rem;
+            margin-top: 5%;
+            margin-bottom: 5%;
+        }
+    }
+    @media screen and (max-width:992px){
+        .signup>p{
+            margin-top: 7%;
+        }
+        .fillup>input{
+            font-size: 1.1rem;
+        }
+    }
+    @media screen and (max-width:845px){
+        .fillup{
+            margin-bottom: 3%;
+        }
+        .fillup>i{
+            font-size: 1.6rem;
+        }
+    }
+    @media screen and (max-width:810px){
+        .signup{
+            width: 48%;
+        }
+    }
+    @media screen and (max-width:626px){
+        .signup{
+            width: 50%;
+        }
+    }
+    @media screen and (max-width:610px){
+        .signup{
+            width: 65%;
+        }
+    }
+    @media screen and (max-width:490px){
+        .signup>p{
+            margin-top: 5%;
+        }
+        .signup{
+            width: 85%;
+        }
+    }
+    @media screen and (max-width:376px){
+        .signup{
+            width: 95%;
+            height: 75%;
+        }
+    }
+</style>
+
+<body>
+
+    <div class="signup">
+        <div class="control">
+            <div class="back" onclick="ed_ud_b_back()">Back</div>
+            <div class="close" onclick="close_modal()">close</div>
+        </div>
+        
+        <p>lets Update Potato!</p>
+
+        <div class="fillup">
+            <i class="fas fa-fingerprint"></i>
+            <input id="user_id" name="user_id" type="text" placeholder="id" value="b119031" readonly>
+        </div>
+
+        <div class="fillup">
+            <i class="fas fa-users"></i>
+            <input id="user_f_name" name="user_f_name" type="text" placeholder="First Name">
+        </div>
+
+        <div class="fillup">
+            <i class="fas fa-users"></i>
+            <input id="user_l_name" name="user_l_name" type="text" placeholder="Last Name">
+        </div>
+
+        <div class="fillup">
+            <i class="fas fa-envelope"></i>
+            <input id="user_em" name="user_em" type="text" placeholder="Email">
+        </div>
+
+        <div class="fillup">
+            <i class="fas fa-lock"></i>
+            <input id="user_pass" name="user_pass" type="password" placeholder="Password">
+        </div>
+
+        <div class="fillup">
+            <i class="fas fa-lock"></i>
+            <input id="user_pass_2" name="user_pass_2" type="password" placeholder="Password(re type)">
+        </div>
+
+        <button onclick="ud_update()">Update</button>
+
+    </div>
