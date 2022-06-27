@@ -6,8 +6,10 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" async defer></script>
         <script async defer src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        
         <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.0/dist/js.cookie.min.js"></script>
         <script async defer type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     </head>
@@ -559,7 +561,7 @@
         }
 
         var ApiEndPoint = "{{ApiEndPoint}}";
-        //console.log(ApiEndPoint)
+        console.log(ApiEndPoint)
         //http://localhost:3135/
 
         modal = document.getElementsByClassName("modal")[0];
@@ -568,10 +570,10 @@
             fetch(`${ApiEndPoint}api`)
                 .then(res => res.json() )
                 .then((data)=>{
-                    document.getElementsByClassName("tuser")[0].innerHTML = `<i class="fas fa-id-card"></i>`+data[0].total_user
-                    document.getElementsByClassName("tseries")[0].innerHTML = `<i class="fas fa-layer-group"></i>`+data[0].total_series
-                    document.getElementsByClassName("tmovies")[0].innerHTML = `<i class="fas fa-film"></i>`+data[0].total_movies
-                    document.getElementsByClassName("tads")[0].innerHTML = `<i class="fab fa-adversal"></i>`+data[0].total_ads
+                    document.getElementsByClassName("tuser")[0].innerHTML = `<i class="fas fa-id-card"></i>`+data.total_user
+                    document.getElementsByClassName("tseries")[0].innerHTML = `<i class="fas fa-layer-group"></i>`+data.total_series
+                    document.getElementsByClassName("tmovies")[0].innerHTML = `<i class="fas fa-film"></i>`+data.total_movies
+                    document.getElementsByClassName("tads")[0].innerHTML = `<i class="fab fa-adversal"></i>`+data.total_ads
 
                 })
                 .catch(err => console.log(err))
@@ -968,7 +970,7 @@
 //................ADD Series............................................
         
         //onchange="myScript()"
-
+        var Series_data = {}
         function add_series(){
             if(!Admin_Authentication()){
                 document.getElementById("admin_msg").style.display = "none";
@@ -977,7 +979,7 @@
                 $(".modal").load("add_series_a.hbs");
                 modal.style.display = "flex";
                 sl = 0;
-                Series_data = {};
+                //Series_data = {};
                 epds = [];
             }
         }
@@ -1000,20 +1002,29 @@
 
             if(chk != 0){
                 a = [];
-                Series_data.name = document.getElementsByTagName("input")[0].value;
+                /* Series_data.name = document.getElementsByTagName("input")[0].value;
                 Series_data.director = document.getElementsByTagName("input")[1].value;
                 Series_data.release_year = document.getElementsByTagName("input")[2].value;
                 Series_data.imdb = document.getElementsByTagName("input")[3].value;
                 Series_data.total_episodes = document.getElementsByTagName("input")[4].value;
-                Series_data.banner_URL = document.getElementsByTagName("input")[5].value;
+                Series_data.banner_URL = document.getElementsByTagName("input")[5].value; */
 
-                Series_data.discription = document.getElementsByTagName("textarea")[0].value;
+                Series_data.name = document.getElementById("s_name").value
+                Series_data.director = document.getElementById("s_dir").value
+                Series_data.release_year = Number(document.getElementById("s_yr").value);
+                Series_data.imdb = document.getElementById("s_imdb").value;
+                Series_data.total_episodes = Number(document.getElementById("s_tep").value);
+                Series_data.banner_URL = document.getElementById("s_bl").value;
+
+                Series_data.description = document.getElementsByTagName("textarea")[0].value;
 
                 a.push(document.getElementsByTagName("select")[0].value);
                 a.push(document.getElementsByTagName("select")[1].value);
 
                 Series_data.genres = a;
                 delete a;
+
+                //console.log(Series_data);
 
                 $(".modal").load("add_series_b.hbs",()=>{
                     if(epds.length!=0){
@@ -1090,16 +1101,24 @@
             }
 
             $(".modal").load("add_series_a.hbs",()=>{
-                document.getElementsByTagName("input")[0].value = Series_data.name;
+                /*document.getElementsByTagName("input")[0].value = Series_data.name;
                 document.getElementsByTagName("input")[1].value = Series_data.director;
                 document.getElementsByTagName("input")[2].value = Series_data.release_year;
                 document.getElementsByTagName("input")[3].value = Series_data.imdb;
                 document.getElementsByTagName("input")[4].value = Series_data.total_episodes;
-                document.getElementsByTagName("input")[5].value = Series_data.banner_URL;
+                document.getElementsByTagName("input")[5].value = Series_data.banner_URL;*/
+
+
+                document.getElementById("s_name").value = Series_data.name;
+                document.getElementById("s_dir").value = Series_data.director;
+                document.getElementById("s_yr").value = Series_data.release_year.toString();
+                document.getElementById("s_imdb").value = Series_data.imdb;
+                document.getElementById("s_tep").value = Series_data.total_episodes.toString();
+                document.getElementById("s_bl").value = Series_data.banner_URL;
 
                 document.getElementsByTagName("select")[0].value = Series_data.genres[0];
                 document.getElementsByTagName("select")[1].value = Series_data.genres[1];
-                document.getElementsByTagName("textarea")[0].value = Series_data.discription; 
+                document.getElementsByTagName("textarea")[0].value = Series_data.description; 
             });
         };
 
@@ -1162,7 +1181,7 @@
                             return;
                         }
                     }
-                    odata.episode_no = darry[0];
+                    odata.episode_no = Number(darry[0]);
                     odata.episode_name = darry[1];
                     odata.episode_URL = darry[2];
 
@@ -1272,16 +1291,23 @@
 
             $(".modal").load("edit_sd_b.hbs",()=>{
 
-                document.getElementsByTagName("input")[0].value = series_data.name;
+                /*document.getElementsByTagName("input")[0].value = series_data.name;
                 document.getElementsByTagName("input")[1].value = series_data.director;
                 document.getElementsByTagName("input")[2].value = series_data.release_year;
                 document.getElementsByTagName("input")[3].value = series_data.imdb;
                 document.getElementsByTagName("input")[4].value = series_data.total_episodes;
-                document.getElementsByTagName("input")[5].value = series_data.banner_URL;
+                document.getElementsByTagName("input")[5].value = series_data.banner_URL;*/
+
+                document.getElementById("s_name").value = series_data.name;
+                document.getElementById("s_dir").value = series_data.director;
+                document.getElementById("s_yr").value = series_data.release_year.toString();
+                document.getElementById("s_imdb").value = series_data.imdb;
+                document.getElementById("s_tep").value = series_data.total_episodes.toString();
+                document.getElementById("s_bl").value = series_data.banner_URL;
 
                 document.getElementsByTagName("select")[0].value = series_data.genres[0];
                 document.getElementsByTagName("select")[1].value = series_data.genres[1];
-                document.getElementsByTagName("textarea")[0].value = series_data.discription;
+                document.getElementsByTagName("textarea")[0].value = series_data.description;
             })
         }
 
@@ -1297,19 +1323,28 @@
                     //serach based on series id
                     $.get(`${ApiEndPoint}series_details/${series_cred.s_id}`,(res)=>{
 
+                        //console.log(res);
+
                         if(typeof res != String && res.length != 0 ){
                             series_data = res;
                             $(".modal").load("edit_sd_b.hbs",()=>{
-                                document.getElementsByTagName("input")[0].value = res.name;
+                                /*document.getElementsByTagName("input")[0].value = res.name;
                                 document.getElementsByTagName("input")[1].value = res.director;
                                 document.getElementsByTagName("input")[2].value = res.release_year;
                                 document.getElementsByTagName("input")[3].value = res.imdb;
                                 document.getElementsByTagName("input")[4].value = res.total_episodes;
-                                document.getElementsByTagName("input")[5].value = res.banner_URL;
+                                document.getElementsByTagName("input")[5].value = res.banner_URL;*/
+
+                                document.getElementById("s_name").value = res.name;
+                                document.getElementById("s_dir").value = res.director;
+                                document.getElementById("s_yr").value = res.release_year;
+                                document.getElementById("s_imdb").value = res.imdb;
+                                document.getElementById("s_tep").value = res.total_episodes;
+                                document.getElementById("s_bl").value = res.banner_URL;
 
                                 document.getElementsByTagName("select")[0].value = res.genres[0];
                                 document.getElementsByTagName("select")[1].value = res.genres[1];
-                                document.getElementsByTagName("textarea")[0].value = res.discription;
+                                document.getElementsByTagName("textarea")[0].value = res.description;
                             });
                         }else{
                            swal({
@@ -1336,7 +1371,7 @@
 
                                 document.getElementsByTagName("select")[0].value = res.genres[0];
                                 document.getElementsByTagName("select")[1].value = res.genres[1];
-                                document.getElementsByTagName("textarea")[0].value = res.discription;
+                                document.getElementsByTagName("textarea")[0].value = res.description;
                             });
                         }else{
                             pop_up("invalid series ID!");
@@ -1375,14 +1410,21 @@
 
             if(chk != 0){
                 a = [];
-                series_data.name = document.getElementsByTagName("input")[0].value;
+                /*series_data.name = document.getElementsByTagName("input")[0].value;
                 series_data.director = document.getElementsByTagName("input")[1].value;
                 series_data.release_year = document.getElementsByTagName("input")[2].value;
                 series_data.imdb = document.getElementsByTagName("input")[3].value;
                 series_data.total_episodes = document.getElementsByTagName("input")[4].value;
-                series_data.banner_URL = document.getElementsByTagName("input")[5].value;
+                series_data.banner_URL = document.getElementsByTagName("input")[5].value;*/
 
-                series_data.discription = document.getElementsByTagName("textarea")[0].value;
+                series_data.name = document.getElementById("s_name").value
+                series_data.director = document.getElementById("s_dir").value
+                series_data.release_year = Number(document.getElementById("s_yr").value);
+                series_data.imdb = document.getElementById("s_imdb").value;
+                series_data.total_episodes = Number(document.getElementById("s_tep").value);
+                series_data.banner_URL = document.getElementById("s_bl").value;
+
+                series_data.description = document.getElementsByTagName("textarea")[0].value;
 
                 a.push(document.getElementsByTagName("select")[0].value);
                 a.push(document.getElementsByTagName("select")[1].value);
@@ -1459,7 +1501,7 @@
                             return;
                         }
                     }
-                    odata.episode_no = darry[0];
+                    odata.episode_no = Number(darry[0]);
                     odata.episode_name = darry[1];
                     odata.episode_URL = darry[2];
 

@@ -1,13 +1,9 @@
 require('dotenv').config();
-//const express = require('express');
+
 const {Router} = require('express');
 const router = Router();
 const bc = require('bcrypt');
-//const cors = require('cors');
 
-
-// const app = express();
-// app.use(cors());
 
 //model
 const ads = require('../models/ads_model');
@@ -15,6 +11,7 @@ const API = require('../models/api_model');
 const movie_details = require('../models/md_model');
 const series_details = require('../models/sd_model');
 const user_details = require('../models/ud_model');
+//const async = require('hbs/lib/async');
 
 //..........................ADMIN PANEL........................................
 
@@ -47,10 +44,10 @@ router.get('/api',async(req,res)=>{
 
         if(result.length == 0){
              await new API(req.body).save();
-             var result = await API.find();
+             result = await API.find();
              res.status(200).send(result);
         }else{
-            res.status(200).send(result);
+            res.status(200).send(result[0]);
         }
     } catch (error) {
         res.status(417).send(error);
@@ -135,6 +132,7 @@ router.get('/user_details',async(req,res)=>{
     }
 })
 
+//USER SIGNUP
 router.post('/user_details',async(req,res)=>{
     try {
        
@@ -148,7 +146,7 @@ router.post('/user_details',async(req,res)=>{
                 await user_data.save(async (err,result)=>{
                     if(err){
                         if(err.name == 'MongoError' && err.code == 11000){
-                            return res.status(422).send('Email Already Exist');
+                            return res.status(200).send('EAE');
                         }
                         return res.status(422).send(err);
                     }else{
@@ -190,8 +188,30 @@ router.get('/user_details/:user_id',async (req,res)=>{
     
 })
 
-//post-patch method to update
+//USER LOGIN
+router.post('/login',async(req,res)=>{
+    try {
 
+        var user_data = await user_details.findOne({email:req.body.email})
+        bc.compare(req.body.pwd, user_data.pwd, (err,result)=>{
+            if(err){throw err}
+            else{
+                if(result){
+                    user_data.pwd = "";
+                    return res.status(200).send(user_data);
+                }
+                return res.status(200).send("UNF");
+            }
+            
+        })
+
+    } catch (e) {
+        console.log(e);
+        return res.status(422).send(e)
+    }
+})
+
+//post-patch method to UPDATE USERS DATA
 router.post('/patch/user_details/:user_id',async (req,res)=>{
     try {
         if(req.body.pwd != "" && req.body.pwd != undefined){
@@ -219,6 +239,56 @@ router.post('/patch/user_details/:user_id',async (req,res)=>{
 
 //................................SERIES-DETAILS....................................................
 
+//get series data based on series genres:-
+router.get('/series_details/bygen/:genres',async (req,res)=>{
+    try {
+
+        //limiting the search....
+        if(req.query.limit !== undefined & req.query.skip !== undefined){
+            // await series_details.find({genres:{$elemMatch:{$in:[req.params.genres]}}},(err,data)=>{
+            //     if(err){
+            //         return res.status(422).send(err)
+            //     }else{
+            //         res.status(200).send(data)
+            //     }
+            // }).limit(Number(req.query.limit)).skip(Number(req.query.page))
+
+            await series_details.find({genres:{$elemMatch:{$in:[req.params.genres]}}})
+                .limit(Number(req.query.limit))
+                .skip(Number(req.query.skip))
+                .exec((err,data)=>{
+                    if(err){
+                        return res.status(422).send(err)
+                    }else{
+                        res.status(200).send(data)
+                    }
+                })
+        }else{
+            // await series_details.find({genres:{$elemMatch:{$in:[req.params.genres]}}},(err,data)=>{
+            //     if(err){
+            //         return res.status(422).send(err)
+            //     }else{
+            //         res.status(200).send(data)
+            //     }
+            // }).limit(20).skip(0)
+
+            await series_details.find({genres:{$elemMatch:{$in:[req.params.genres]}}})
+                .limit(Number(10))
+                .skip(Number(0))
+                .exec((err,data)=>{
+                    if(err){
+                        return res.status(422).send(err)
+                    }else{
+                        res.status(200).send(data)
+                    }
+                })
+        }
+        
+    } catch (e) {
+        console.log(e)
+    }
+})
+
 router.get('/series_details',async (req,res)=>{
     try {
         var result = await series_details.find();
@@ -227,7 +297,6 @@ router.get('/series_details',async (req,res)=>{
         res.status(400).send(error);   
     }
 })
-
 
 router.get('/series_details/:series_id', async(req,res)=>{
     try {
@@ -252,6 +321,7 @@ router.get('/series_details/name/:series_name', async(req,res)=>{
 router.post('/series_details',async(req,res)=>{
     try {
         var series_data = new series_details(req.body);
+        //console.log(series_data);
         await API.find({},(err,arr)=>{
             arr.map(async (api_data)=>{
                 series_data.series_id = series_data.series_id + (api_data.total_series+1).toString();
@@ -287,6 +357,34 @@ router.post('/series_details/:series_id',async(req,res)=>{
 })
 
 //............................................MOVIES-DETAILS......................................................................................
+
+//get movies data based on series genres:-
+router.get('/movies_details/bygen/:genres',async (req,res)=>{
+    try {
+
+        //limiting the search....
+        if(req.query.limit !== undefined){
+            await movie_details.find({genres:{$elemMatch:{$in:[req.params.genres]}}},(err,data)=>{
+                if(err){
+                    return res.status(422).send(err)
+                }else{
+                    res.status(200).send(data)
+                }
+            }).limit(Number(req.query.limit))
+        }else{
+            await movie_details.find({genres:{$elemMatch:{$in:[req.params.genres]}}},(err,data)=>{
+                if(err){
+                    return res.status(422).send(err)
+                }else{
+                    res.status(200).send(data)
+                }
+            })
+        }
+        
+    } catch (e) {
+        console.log(e)
+    }
+})
 
 router.get('/movies_details',async (req,res)=>{
     try {
@@ -371,6 +469,30 @@ router.post('/movie_details/:movie_id',async(req,res)=>{
     }
 })
 
+//.......................................SEARCHING DATA.....................................................................
+
+router.get('/search', async(req,res)=>{
+    try {
+        var data = {movies:[],series:[]}
+
+        var series = await series_details.find({name:{$regex:new RegExp(req.query.key),$options:'i'}})
+        var movies = await movie_details.find({name:{$regex:new RegExp(req.query.key),$options:'i'}})
+
+        data.movies = movies
+        data.series = series
+
+        if(data.movies.length===0 & data.series.length===0){
+            res.status(200).send("NDF")
+        }else{
+            res.status(200).send(data)
+        }
+        
+    }catch(e) {
+        console.log('error in searching queries',e)
+        res.status(403).send("error in searching data")
+    }
+})
+
 //......................................ADS-DETAILS.........................................................................
 
 router.get('/ads_details',async (req,res)=>{
@@ -426,8 +548,6 @@ router.patch('/ads_details/:ads_id',async(req,res)=>{
         res.status(422).send("movie details not updated \n"+error);
     }
 })
-
-
 
 
 module.exports = router;

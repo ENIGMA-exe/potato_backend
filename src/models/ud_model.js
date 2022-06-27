@@ -35,6 +35,9 @@ const ud_schema = mongoose.Schema({
 ud_schema.pre("save",async function(next){
     if(this.isModified("pwd")){
         this.pwd = await bc.hash(this.pwd,10);
+        // bc.hash(this.pwd,10,function(hash){
+        //     this.pwd = hash;
+        // })
     }
     next();
 })

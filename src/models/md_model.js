@@ -27,11 +27,6 @@ const md_schema = mongoose.Schema({
         type:String,
         require:[true,'Description has not meintioned.']
     },
-    // genres:[
-    //     {
-    //         gen:{type:String}
-    //     }
-    // ],
     genres:{
         type:Array,
         default:[{gen:"none"}]
