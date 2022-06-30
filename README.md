@@ -1,4 +1,7 @@
-# potato_backend
+# Potato Backend
+
+![alt text](https://github.com/ENIGMA-exe/potato_backend/blob/main/Screenshot%20(40).png?raw=true)
+![alt text](https://github.com/ENIGMA-exe/potato_backend/blob/main/Screenshot%20(39).png?raw=true)
 
 ### How to get started
 
