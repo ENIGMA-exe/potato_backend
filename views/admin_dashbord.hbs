@@ -1003,12 +1003,7 @@
 
             if(chk != 0){
                 a = [];
-                /* Series_data.name = document.getElementsByTagName("input")[0].value;
-                Series_data.director = document.getElementsByTagName("input")[1].value;
-                Series_data.release_year = document.getElementsByTagName("input")[2].value;
-                Series_data.imdb = document.getElementsByTagName("input")[3].value;
-                Series_data.total_episodes = document.getElementsByTagName("input")[4].value;
-                Series_data.banner_URL = document.getElementsByTagName("input")[5].value; */
+                
 
                 Series_data.name = document.getElementById("s_name").value
                 Series_data.director = document.getElementById("s_dir").value
@@ -1102,14 +1097,7 @@
             }
 
             $(".modal").load("add_series_a.hbs",()=>{
-                /*document.getElementsByTagName("input")[0].value = Series_data.name;
-                document.getElementsByTagName("input")[1].value = Series_data.director;
-                document.getElementsByTagName("input")[2].value = Series_data.release_year;
-                document.getElementsByTagName("input")[3].value = Series_data.imdb;
-                document.getElementsByTagName("input")[4].value = Series_data.total_episodes;
-                document.getElementsByTagName("input")[5].value = Series_data.banner_URL;*/
-
-
+                
                 document.getElementById("s_name").value = Series_data.name;
                 document.getElementById("s_dir").value = Series_data.director;
                 document.getElementById("s_yr").value = Series_data.release_year.toString();
@@ -1292,13 +1280,6 @@
 
             $(".modal").load("edit_sd_b.hbs",()=>{
 
-                /*document.getElementsByTagName("input")[0].value = series_data.name;
-                document.getElementsByTagName("input")[1].value = series_data.director;
-                document.getElementsByTagName("input")[2].value = series_data.release_year;
-                document.getElementsByTagName("input")[3].value = series_data.imdb;
-                document.getElementsByTagName("input")[4].value = series_data.total_episodes;
-                document.getElementsByTagName("input")[5].value = series_data.banner_URL;*/
-
                 document.getElementById("s_name").value = series_data.name;
                 document.getElementById("s_dir").value = series_data.director;
                 document.getElementById("s_yr").value = series_data.release_year.toString();
@@ -1329,13 +1310,7 @@
                         if(typeof res != String && res.length != 0 ){
                             series_data = res;
                             $(".modal").load("edit_sd_b.hbs",()=>{
-                                /*document.getElementsByTagName("input")[0].value = res.name;
-                                document.getElementsByTagName("input")[1].value = res.director;
-                                document.getElementsByTagName("input")[2].value = res.release_year;
-                                document.getElementsByTagName("input")[3].value = res.imdb;
-                                document.getElementsByTagName("input")[4].value = res.total_episodes;
-                                document.getElementsByTagName("input")[5].value = res.banner_URL;*/
-
+                                
                                 document.getElementById("s_name").value = res.name;
                                 document.getElementById("s_dir").value = res.director;
                                 document.getElementById("s_yr").value = res.release_year;
@@ -1411,12 +1386,6 @@
 
             if(chk != 0){
                 a = [];
-                /*series_data.name = document.getElementsByTagName("input")[0].value;
-                series_data.director = document.getElementsByTagName("input")[1].value;
-                series_data.release_year = document.getElementsByTagName("input")[2].value;
-                series_data.imdb = document.getElementsByTagName("input")[3].value;
-                series_data.total_episodes = document.getElementsByTagName("input")[4].value;
-                series_data.banner_URL = document.getElementsByTagName("input")[5].value;*/
 
                 series_data.name = document.getElementById("s_name").value
                 series_data.director = document.getElementById("s_dir").value
