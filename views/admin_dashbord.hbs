@@ -9,7 +9,9 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" async defer></script>
+
         <script async defer src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         
         <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.0/dist/js.cookie.min.js"></script>
         <script async defer type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
@@ -554,7 +556,7 @@
     <script>
 
         function Admin_Authentication(){
-            if(Cookies.get('PotatoBackend-auth')=='valid'){
+            if(Cookies.get('PotatoBackend-auth')==='valid'){
                 return true;
             }else{
                 return false;
@@ -562,7 +564,7 @@
         }
 
         var ApiEndPoint = "{{ApiEndPoint}}";
-        console.log(ApiEndPoint)
+        //console.log(ApiEndPoint)
         //http://localhost:3135/
 
         modal = document.getElementsByClassName("modal")[0];
@@ -577,7 +579,14 @@
                     document.getElementsByClassName("tads")[0].innerHTML = `<i class="fab fa-adversal"></i>`+data.total_ads
 
                 })
-                .catch(err => console.log(err))
+                .catch((err) =>{
+                    swal.fire({
+                        title:"Error",
+                        text:err,
+                        icon:"warning",
+                        button:"close!"
+                    }) 
+                })
         }
 
         get_api_detail();
@@ -918,7 +927,7 @@
                 if(up_data.pwd == document.getElementById("user_pass_2").value){
                     if(up_data.pwd.length>5){
 
-                        console.log(up_data);
+                        //console.log(up_data);
 
                         $.post(`${ApiEndPoint}patch/user_details/${u_id}`,up_data,function(res,status){
                             
@@ -1081,7 +1090,7 @@
 
                     for(var j=0; j<temp2.length; j++){
 
-                            darry.push(temp2[j].value)
+                        darry.push(temp2[j].value)
                     }
                     odata.episode_no = darry[0];
                     odata.episode_name = darry[1];
@@ -1183,7 +1192,7 @@
 
                 Series_data.total_episodes = Series_data.episodes.length;
         
-                console.log(Series_data);
+                //console.log(Series_data);
                 $.post(`${ApiEndPoint}series_details`,Series_data,(res)=>{
                     swal({
                         title:"registered",
@@ -1262,7 +1271,7 @@
 
                     for(var j=0; j<temp2.length; j++){
 
-                            darry.push(temp2[j].value)
+                         darry.push(temp2[j].value)
                     }
                     odata.episode_no = darry[0];
                     odata.episode_name = darry[1];
@@ -1483,7 +1492,7 @@
                 series_data.episodes = epds;
                 series_data.total_episodes = series_data.episodes.length;
 
-                console.log(series_data);
+                //console.log(series_data);
                 delete temp1;
                 delete temp2;
                 delete epds;
@@ -1584,7 +1593,7 @@
                         })
                     })
 
-                    console.log(movie_data);
+                    //console.log(movie_data);
 
             }else{
                 swal({
@@ -1659,7 +1668,7 @@
                     //search based on movies name
                     $.get(`${ApiEndPoint}movie_details/name/${movie_cred.name}`,(res)=>{
                         if(typeof res != String && res.length != 0 && res != undefined){
-                            console.log(res);
+                            //console.log(res);
                             movie_data = res;
 
                             $(".modal").load("edit_md_b.hbs",()=>{
@@ -1788,7 +1797,7 @@
                         icon:"success",
                         button:"close!"
                     })
-                    console.log(ads_data);
+                    //console.log(ads_data);
                     delete ads_data;
                     close_modal();
                     
